@@ -236,14 +236,7 @@ def test_articles_nearby_works(monkeypatch):
         7161912,
         722651,
         3652124
-    ]    
-
-
-            #########################
-            #                       #
-            #  ===>  A FAIRE  <===  #
-            #                       #
-            #########################
+    ]   
 
 def test_get_inro_exist():
     """

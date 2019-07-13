@@ -3,6 +3,19 @@ import re
 import nltk
 
 class Parser():
+    """
+        This class instatiate object, that can pop out
+        words from a sentence, if they are not meaningfull.
+        This is done with pop() and the final sentence parsed 
+        is in the text attribut.
+
+        workflow:
+        
+            parser_obj = Paser()
+            parser_obj.tokenized() ==> str sentence to list of words
+            parser_obj.pop() ==> pop out words not meaningfull
+            parser_obj.text ==> returned sentence parsed (str)
+    """
 
     def __init__(self, raw_text=str()):
         """
