@@ -8,6 +8,12 @@ def form():
     """
         controleur de l'application
     """   
+
+#########################
+#                       #
+#  ===>  A FAIRE  <===  #
+#                       #
+#########################
     
     return render_template("form.html")
 

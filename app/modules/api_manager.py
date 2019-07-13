@@ -1,7 +1,7 @@
-import parser
-class ArticleFinder():
+import requests
+class ApiManager:
     """
-        class that instanciate objects that can find from a raw sentence:
+        Class that instanciate objects that can find from a raw sentence:
 
         => Address at postal format if the sentence describe a place.
         => Coodrinates of the address (latitude and longitude).
@@ -9,43 +9,56 @@ class ArticleFinder():
 
         This class is using google and wikipedia APIs.      
     """
-
-
-    def __init__ (self, text_raw): # définir le type des data
+    def __init__(self, parsed_text):
         """
-            init method
+            Constructor.
         """
-        self.text_raw = text_raw
-        self.id = int()
-        self.lat = float()
-        self.lgn = float()
+        self.parsed_text = parsed_text
+        self.name = ""
         self.address = ""
+        self.latitude = float()
+        self.longitude = float()
         self.intro = ""
+        self.link = ""
+
+    def place_finder(self):
+        """ 
+            The method place_finder must implement the instances attributs
+            from the instance attribut parsed_text and the google place API:
+                => name
+                => address
+                => latitude
+                => longitude         
+        """       
+        payload = {
+            "input": self.parsed_text,
+            "language": "fr",
+            "fields": "formatted_address,name,geometry/location",
+            "inputtype": "textquery",
+            "key": "AIzaSyAVJ9UzNh0XIXQ3oT400XvlieLNsfY_2fk"
+
+        }
+        response = requests.get(
+            'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?',
+            params=payload
+        ).json()
+
+        self.name = response['candidates'][0]['name']
+        self.address = response['candidates'][0]['formatted_address']
+        self.latitude = response['candidates'][0]['geometry']['lat']
+        self.longitude = response['candidates'][0]['geometry']['lng']
 
         
-    def search_address(self):
-        """
-            Implementation using the geocoding google api of the attributes:
-            => address (str)
-            => lat (float)
-            => lgn (float)    
-        """
-        pass
 
-    def search_article_nearby(self):
-        """
-            Using wikimedia action API.
-            Return the pageid wikimedia API parameter 
-            of the first article's page found 
-            nearby 50 meters radius from the coordinates point.
-        """
-        pass
 
-    def search_article_intro_from_pageid(pageids):
-        """
-            Using wikimedia action API.
-            return the intro paragraphe
-            take the pageid API parameter.
-        """
-        pass
 
+
+
+#########################
+#                       #
+#  ===>  A FAIRE  <===  #
+#                       #
+#########################
+
+
+ 

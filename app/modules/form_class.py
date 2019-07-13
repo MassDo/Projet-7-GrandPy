@@ -8,3 +8,9 @@ class AdressForm(FlaskForm):
     texte = StringField("USER INPUT", validators=[DataRequired()]) # rempacer par variable
                                                                    # user_input
     submit = SubmitField("Envoyer")
+
+#########################
+#                       #
+#  ===>  A FAIRE  <===  #
+#                       #
+#########################    
