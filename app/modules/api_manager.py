@@ -24,6 +24,7 @@ class ApiManager:
         self.link = ""
         self.articles_id = [] # List of the id of articles
                               # found nearby the place.
+
     def place_finder(self):
         """ 
             The method place_finder must implement the instances attributs
@@ -51,7 +52,6 @@ class ApiManager:
         self.latitude = response['candidates'][0]['geometry']['location']['lat']
         self.longitude = response['candidates'][0]['geometry']['location']['lng']
 
-
     def articles_nearby(self):
         """
             Using wikimedia action API.
@@ -75,18 +75,29 @@ class ApiManager:
 
         self.articles_id = [
             article["pageid"] for article in response["query"]["geosearch"]
-            ]
-   
-    
+        ]
 
-
-
-
-#########################
-#                       #
-#  ===>  A FAIRE  <===  #
-#                       #
-#########################
-
-
- 
+    def get_intro(self, proximity=0):
+        """
+            Using wikimedia action API.
+            return the intro paragraphe of an article
+            find with the pageid from articles_id attribut.
+            taking the pageid as parameter and
+            the proxymity parameter is the index of articles_id
+            proximity == 0 => closest article from place coordinates          
+        """
+        api_payload = {
+            "action": "query",
+            "prop": "extracts",
+            "exintro":"exintro",
+            "explaintext": "explaintext",
+            "redirects": 1,
+            "pageids": self.articles_id[proximity],
+            "format": "json"                  
+        } 
+        response = requests.get(
+            "https://fr.wikipedia.org/w/api.php?",
+            params=api_payload
+        ).json()
+        
+        self.intro = response["query"]["pages"][str(self.articles_id[proximity])]["extract"]
