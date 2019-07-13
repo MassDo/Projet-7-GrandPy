@@ -1,4 +1,4 @@
-from app.toolbox import parser 
+from app.toolbox import parser
 
 
 class Test_parser():
@@ -54,4 +54,18 @@ class Test_parser():
         my_text_analyser.pop()
 
         assert my_text_analyser.text == "Bonjour tour Eiffel"
+
+
+# package: app
+#     package: toolbox
+#         module: parser.py      
+#         module: stop_words_oc
+#             ma constante à importer: stopwords  
+# package: tests
+#     package: test_toolbox
+#         module: test_parser 
+
+#         # je fais: from app.toolbox import parser
+#                             # j'ai ModuleNotFoundError: No module named 'stop_words_oc'
+
 

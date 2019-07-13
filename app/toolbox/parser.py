@@ -1,6 +1,10 @@
+
 import re
 
 import nltk
+
+from stopwords import stw
+
 
 class Parser():
     """
@@ -45,13 +49,31 @@ class Parser():
             from the tokens attribute 
             and implement the text attribut 
             with the final str
-        """    
+        """ 
+        #StopWords(sw) set
         sw = set()
-        # Find st database
-        sw = nltk.corpus.stopwords.words('french')         
+        # ADD openclassrooms(oc) SW        
+        sw.update(stw)
+        # Add NLTK SW        
+        nltk_module_corpus_stopwords = nltk.corpus.stopwords.words('french')
+        sw.update(nltk_module_corpus_stopwords)
         # Make a temp list of tokens without stop words
         tokens_pop_sw = [w for w in self.tokens if not w in list(sw)]
         # Make a str from this list
         self.text = " ".join(tokens_pop_sw)
+
+if __name__ == '__main__':
+    print(stw)
+    # sw = set()
+    # # ADD oc SW        
+    # sw.update(stopwords)
+    # # Add NLTK SW        
+    # nltk_module_corpus_stopwords = nltk.corpus.stopwords.words('french')
+    # sw.update(nltk_module_corpus_stopwords)
+    # print(sw)
+    
+
+
+    
         
 
