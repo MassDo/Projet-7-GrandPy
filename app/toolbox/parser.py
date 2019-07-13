@@ -10,8 +10,8 @@ class Parser():
         is in the text attribut.
 
         workflow:
-        
-            parser_obj = Paser()
+
+            parser_obj = Paser("your sentence to parse")
             parser_obj.tokenized() ==> str sentence to list of words
             parser_obj.pop() ==> pop out words not meaningfull
             parser_obj.text ==> returned sentence parsed (str)
@@ -37,8 +37,7 @@ class Parser():
            without accents and punctuation
            "Hello, world!" => ["Hello", "world"]
         """
-        self.tokens = re.sub(r"[^\w]", " ",  self.raw_text).split()
-
+        self.tokens = re.sub(r"[^\w]", " ", self.raw_text).split()
 
     def pop(self):
         """

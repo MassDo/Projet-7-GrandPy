@@ -1,4 +1,4 @@
-from app.modules import parser 
+from app.toolbox import parser 
 
 
 class Test_parser():

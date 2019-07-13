@@ -1,4 +1,4 @@
-from app.modules import api_manager
+from app.toolbox import api_manager
 
 
 class MockRequestsGetPlace:
@@ -187,9 +187,9 @@ def test_methode_place_finder_works(monkeypatch):
             => latitude
             => longitude           
     """   
-    # Patching du monkeypatch pour remplacer méthode requests.get
+    # Patching du monkeypatch pour remplacer méthode requests.get 'app.toolbox.api_manager.requests.get'
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get',
+        'requests.get',
         MockRequestsGetPlace
     )
 
@@ -219,14 +219,14 @@ def test_articles_nearby_works(monkeypatch):
     """     
     # patching for place api    
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get', 
+        'requests.get', 
         MockRequestsGetPlace
     ) 
     search_obj = api_manager.ApiManager("Elysée")
     search_obj.place_finder()
     # patching for wiki api
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get',
+        'requests.get',
         MockRequestsGetWiki
     )
     search_obj.articles_nearby()
@@ -253,20 +253,20 @@ def test_get_intro_works_default_proximity(monkeypatch):
     """    
     # patching for place api    
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get', 
+        'requests.get', 
         MockRequestsGetPlace
     ) 
     search_obj = api_manager.ApiManager("Elysée")
     search_obj.place_finder()
     # patching for wiki api
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get',
+        'requests.get',
         MockRequestsGetWiki
     )
     search_obj.articles_nearby()
     #patching for wiki intro
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get',
+        'requests.get',
         MockRequestGetWikiIntroProximityDefault
     )
     search_obj.get_intro()
@@ -281,20 +281,20 @@ def test_get_intro_works_proximity_1(monkeypatch):
     """    
     # patching for place api    
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get', 
+        'requests.get', 
         MockRequestsGetPlace
     ) 
     search_obj = api_manager.ApiManager("Elysée")
     search_obj.place_finder()
     # patching for wiki api
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get',
+        'requests.get',
         MockRequestsGetWiki
     )
     search_obj.articles_nearby()
     #patching for wiki intro
     monkeypatch.setattr(
-        'app.modules.api_manager.requests.get',
+        'requests.get',
         MockRequestGetWikiIntroProximity_one
     )
     search_obj.get_intro(1)

@@ -3,7 +3,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 # local imports
-from app.modules import form_class
+from app.toolbox import form_class
 
 class Test_form_class():
 
