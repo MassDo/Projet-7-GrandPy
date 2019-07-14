@@ -3,7 +3,7 @@ import re
 
 import nltk
 
-from app.toolbox.stopwords import stw
+from .stopwords import stw
 
 
 class Parser():

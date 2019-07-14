@@ -1,4 +1,8 @@
+import os
+
 import requests
+
+API_KEYS = os.environ.get('KEY_API_GOOGLE')
 
 
 class ApiManager:
@@ -39,14 +43,14 @@ class ApiManager:
             "language": "fr",
             "fields": "formatted_address,name,geometry/location",
             "inputtype": "textquery",
-            "key": "AIzaSyAVJ9UzNh0XIXQ3oT400XvlieLNsfY_2fk"
+            "key": API_KEYS
 
         }        
         response = requests.get(
             'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?',
             params=payload
         ).json()
-
+        
         self.name = response['candidates'][0]['name']
         self.address = response['candidates'][0]['formatted_address']
         self.latitude = response['candidates'][0]['geometry']['location']['lat']
@@ -64,8 +68,8 @@ class ApiManager:
             "action": "query",
             "list": "geosearch",
             "gscoord": "{}|{}".format(self.latitude, self.longitude), 
-            "gsradius": 100,
-            "gslimit": 10,
+            "gsradius": 100, # radius in meters 
+            "gslimit": 10, # number max of articles
             "format": "json"                  
         }      
         response = requests.get(
@@ -80,7 +84,7 @@ class ApiManager:
     def get_intro(self, proximity=0):
         """
             Using wikimedia action API.
-            return the intro paragraphe of an article
+            return the intro paragraphe of only one article
             find with the pageid from articles_id attribut.           
 
             the proxymity parameter is the index of articles_id
@@ -88,7 +92,7 @@ class ApiManager:
         """
         api_payload = {
             "action": "query",
-            "prop": "extracts",
+            "prop": "extracts", #prop=info
             "exintro":"exintro",
             "explaintext": "explaintext",
             "redirects": 1,
@@ -101,3 +105,22 @@ class ApiManager:
         ).json()
         
         self.intro = response["query"]["pages"][str(self.articles_id[proximity])]["extract"]
+        self.link = f"https://fr.wikipedia.org/?curid={self.articles_id[proximity]}"
+
+if __name__ == '__main__':
+
+    # API data collection
+    data_finder = ApiManager("Elysée")
+    data_finder.place_finder()
+    data_finder.articles_nearby()
+    data_finder.get_intro(0)
+    # data into the template
+    nombre_article = len(data_finder.articles_id)
+    
+    print(
+        "\nnb d'article\n", nombre_article,
+        "\nAddress\n", data_finder.address,
+        "\nlink\n ", data_finder.link,
+        "\ntitle\n ", data_finder.name,
+        "\nintro\n", data_finder.intro
+    )
