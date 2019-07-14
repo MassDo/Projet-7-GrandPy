@@ -4,7 +4,15 @@
     <title>test</title>
 </head>
 <body>
+
     <h1>test</h1>
+    <form action="" method="POST" novalidate id="form">
+        {{ form.hidden_tag() }}
+        <p>{{ form.text }}</p>
+        <p>{{ form.submit }}</p>
+        <p>{{ form.text.data }}</p>
+        <p> {{ response }} </p>        
+    </form>
 
 </body>
 </html>

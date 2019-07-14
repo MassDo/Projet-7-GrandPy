@@ -64,8 +64,8 @@ class ApiManager:
             "action": "query",
             "list": "geosearch",
             "gscoord": "{}|{}".format(self.latitude, self.longitude), 
-            "gsradius": 10000,
-            "gslimit": 1,
+            "gsradius": 100,
+            "gslimit": 10,
             "format": "json"                  
         }      
         response = requests.get(
@@ -81,8 +81,8 @@ class ApiManager:
         """
             Using wikimedia action API.
             return the intro paragraphe of an article
-            find with the pageid from articles_id attribut.
-            taking the pageid as parameter and
+            find with the pageid from articles_id attribut.           
+
             the proxymity parameter is the index of articles_id
             proximity == 0 => closest article from place coordinates          
         """

@@ -3,7 +3,7 @@ import re
 
 import nltk
 
-from stopwords import stw
+from app.toolbox.stopwords import stw
 
 
 class Parser():
@@ -63,17 +63,4 @@ class Parser():
         self.text = " ".join(tokens_pop_sw)
 
 if __name__ == '__main__':
-    print(stw)
-    # sw = set()
-    # # ADD oc SW        
-    # sw.update(stopwords)
-    # # Add NLTK SW        
-    # nltk_module_corpus_stopwords = nltk.corpus.stopwords.words('french')
-    # sw.update(nltk_module_corpus_stopwords)
-    # print(sw)
-    
-
-
-    
-        
-
+    pass
