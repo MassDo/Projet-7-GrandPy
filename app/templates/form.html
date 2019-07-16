@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
+
     <title>test</title>
 </head>
 <body>
@@ -10,13 +18,32 @@
         {{ form.hidden_tag() }}
         <p>{{ form.text }}</p>
         <p>{{ form.submit }}</p>
-        <p>{{ form.text.data }}</p>
-        <p> {{ bot_response }} </p> 
+        <p>USER INPUT: {{ user_input }}</p>
+        <p>PARSED TEXT: {{ parsed_text }}</p>          
         <p> {{ title }} </p>
         <p> {{ intro }} </p>
-        <p><a href="{{ link }}"></a></p>
-             
-    </form>
+        <p><a href= {{ link }} ></a>{{ link }}</p>
+        <p> {{ lat }} </p>
+        <p> {{ lgn }} </p>
+    </form> 
+    {% if title %}  
+    <div id="map"></div>
+    {% endif %}  
+    <script >        
+        function initMap() {          
+        // The location of address
+        var position_marqueur = {lat:{{ lat }} , lng: {{ lgn }}};
+        // The map, centered at address
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 4, center: position_marqueur});
+        // The marker, positioned at address
+        var marker = new google.maps.Marker({position: position_marqueur, map: map}); 
+      };
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEIv6g--KN1RoNNBDrkLM9UQnGQrkf3_Y&callback=initMap">
+    </script>
+    
 
 </body>
 </html>

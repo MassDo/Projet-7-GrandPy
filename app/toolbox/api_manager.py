@@ -2,8 +2,8 @@ import os
 
 import requests
 
+# key recovery
 API_KEYS = os.environ.get('KEY_API_GOOGLE')
-
 
 class ApiManager:
     """
@@ -14,7 +14,8 @@ class ApiManager:
         => Wikipedia's articles and their intro text nearby the address.
 
         This class is using google and wikipedia APIs.      
-    """
+    """   
+
     def __init__(self, parsed_text):
         """
             Constructor.
@@ -26,7 +27,7 @@ class ApiManager:
         self.longitude = float()
         self.intro = ""
         self.link = ""
-        self.articles_id = [] # List of the id of articles
+        self.articles_id = list() # List of the id of articles
                               # found nearby the place.
 
     def place_finder(self):
@@ -44,7 +45,6 @@ class ApiManager:
             "fields": "formatted_address,name,geometry/location",
             "inputtype": "textquery",
             "key": API_KEYS
-
         }        
         response = requests.get(
             'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?',
@@ -55,7 +55,7 @@ class ApiManager:
         self.address = response['candidates'][0]['formatted_address']
         self.latitude = response['candidates'][0]['geometry']['location']['lat']
         self.longitude = response['candidates'][0]['geometry']['location']['lng']
-
+        
     def articles_nearby(self):
         """
             Using wikimedia action API.
@@ -109,18 +109,6 @@ class ApiManager:
 
 if __name__ == '__main__':
 
-    # API data collection
-    data_finder = ApiManager("Elysée")
-    data_finder.place_finder()
-    data_finder.articles_nearby()
-    data_finder.get_intro(0)
-    # data into the template
-    nombre_article = len(data_finder.articles_id)
-    
-    print(
-        "\nnb d'article\n", nombre_article,
-        "\nAddress\n", data_finder.address,
-        "\nlink\n ", data_finder.link,
-        "\ntitle\n ", data_finder.name,
-        "\nintro\n", data_finder.intro
-    )
+    test = ApiManager("Elysée")
+    test.place_finder()
+    print(test.name)
