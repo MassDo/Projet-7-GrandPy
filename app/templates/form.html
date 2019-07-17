@@ -21,8 +21,9 @@
         <p>USER INPUT: {{ user_input }}</p>
         <p>PARSED TEXT: {{ parsed_text }}</p>          
         <p> {{ title }} </p>
+        <p>Address: {{ address }}</p>
         <p> {{ intro }} </p>
-        <p><a href= {{ link }} ></a>{{ link }}</p>
+        <p><a href= "{{ link }}" target="_blank" >{{ link }}</a></p>
         <p> {{ lat }} </p>
         <p> {{ lgn }} </p>
     </form> 
@@ -35,7 +36,7 @@
         var position_marqueur = {lat:{{ lat }} , lng: {{ lgn }}};
         // The map, centered at address
         var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 4, center: position_marqueur});
+            document.getElementById('map'), {zoom: 10, center: position_marqueur});
         // The marker, positioned at address
         var marker = new google.maps.Marker({position: position_marqueur, map: map}); 
       };

@@ -60,7 +60,7 @@ class ApiManager:
         """
             Using wikimedia action API.
             Return a list of the pageid wikimedia API parameter 
-            nearby 100 meters radius from the coordinates point.
+            nearby 500 meters radius from the coordinates point.
             The list returned is ordered by ascendant distance 
             from the place coordinates
         """
@@ -68,7 +68,7 @@ class ApiManager:
             "action": "query",
             "list": "geosearch",
             "gscoord": "{}|{}".format(self.latitude, self.longitude), 
-            "gsradius": 100, # radius in meters 
+            "gsradius": 500, # radius in meters 
             "gslimit": 10, # number max of articles
             "format": "json"                  
         }      

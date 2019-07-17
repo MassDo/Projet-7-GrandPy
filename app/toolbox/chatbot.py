@@ -3,7 +3,8 @@ from .api_manager import ApiManager
 
 class Chatbot:
     """
-        Object that respond to the user,
+        class that instanciate object that
+        can respond to the user,
     """
     text_parsed_list = []
     proximity = 0
@@ -31,8 +32,10 @@ class Chatbot:
         text_parser.tokenized()
         text_parser.pop()         
         self.parsed = text_parser.text
+        # if this is the first time user ask for a place
         if self.parsed in Chatbot.text_parsed_list:
            Chatbot.proximity += 1
+        # if the user asking for the same place
         else:
             Chatbot.text_parsed_list.append(self.parsed)
             Chatbot.proximity = 0                       

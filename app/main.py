@@ -19,12 +19,15 @@ def form():
     chatbot = Chatbot()
     
     if form.validate_on_submit():
+
         user_raw_input = form.text.data
         chatbot.answer(user_raw_input)
+        
         return render_template(
             '/form.html',
-            form=form,
+            form=form,            
             user_input=user_raw_input,
+            address=chatbot.address,
             parsed_text=chatbot.parsed,
             title=chatbot.name,
             link=chatbot.link,
