@@ -24,8 +24,7 @@ class Chatbot:
             return the bot answer modulate by the proximity
             parameter of the method ApiManager.get_intro()
         """ 
-        self.input = user_input
-            
+        self.input = user_input            
         
         # Parsing
         text_parser = Parser(self.input)
@@ -70,6 +69,10 @@ if __name__ == '__main__':
     chatbot = Chatbot()
     chatbot.answer("Elysée")
     print(
+        chatbot.address,
         chatbot.name,
-        chatbot.answer
+        chatbot.link,
+        chatbot.text,
+        chatbot.latitude,
+        chatbot.longitude
     )

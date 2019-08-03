@@ -1,5 +1,4 @@
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template, request, jsonify
 
 from toolbox.form import AddressForm
 from toolbox.chatbot import Chatbot
@@ -8,39 +7,48 @@ from toolbox.chatbot import Chatbot
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ma_cle_secrette' # a refacturer
 
-# user_raw_input = ""
+
 
 @app.route('/form', methods=['GET', 'POST'])
 def form():
     """
         controler 
     """  
-    form = AddressForm()
+    # form = AddressForm()
     chatbot = Chatbot()
     
-    if form.validate_on_submit():
+    if request.method == 'POST':
+        user_input = request.form.get("userInput")
+        # user_input = request.form["userInput"]
+        chatbot.answer(user_input)        
 
-        user_raw_input = form.text.data
-        chatbot.answer(user_raw_input)
-        
-        return render_template(
-            '/form.html',
-            form=form,            
-            user_input=user_raw_input,
+        return jsonify(
             address=chatbot.address,
-            parsed_text=chatbot.parsed,
             title=chatbot.name,
             link=chatbot.link,
             intro=chatbot.text,
             lat=chatbot.latitude,
-            lgn=chatbot.longitude
-        )       
-    return render_template(
+            lng=chatbot.longitude
+        )
+
+    else:
+        return render_template(
         '/form.html',
-        form=form
-    )
+        lat=40,
+        lng=42
+        )
+
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+    # address=chatbot.address,
+    #         title=chatbot.name,
+    #         link=chatbot.link,
+    #         intro=chatbot.text,
+    #         lat=chatbot.latitude,
+    #         lgn=chatbot.longitude
+        
     
     
