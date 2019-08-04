@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+
+{% block body %}
+
+
+<div id="background">
+    <br><br><br><br><br><br><br><br><br><br>
+    <div id="chatZone" class="image"></div>
+
+    <div id="chatTextZone" class="image"> 
+        <textarea id="ajaxTextbox" autocomplete="off" contentEditable></textarea>
+        <input type="submit" id="ajaxButton" style="cursor: pointer;" value="Envoyer">
+    </div>    
+
+    <script type="text/javascript" src="{{url_for('static', filename='test.js')}}"></script>             
+</div> 
+<br><br>   
+{% endblock %}
+
+{# TODO
+    => how to fit image to the screen css
+
+    
+
+ #}

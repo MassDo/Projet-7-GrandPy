@@ -1,0 +1,25 @@
+html {
+    max-width: 100% ;
+}
+div#background {
+    background-image: url(http://barkerhost.com/wp-content/uploads/sites/4/2017/12/xjOUbhs1B80vV9lD2W9g7cNlUJY-7.jpg);
+    background-size: cover;
+    word-wrap: break-word;
+}
+div.image {
+    max-width: 100%;    
+    margin-left: 5%;
+}
+textarea#ajaxTextbox {
+    resize: none;
+    margin-right: 5%;
+    padding: 10px;
+    line-height: 1.5;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+    width: 70%;
+}
+input#ajaxButton {
+    background-color: green;
+}
