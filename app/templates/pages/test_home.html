@@ -1,11 +1,13 @@
 {% extends 'layouts/base.html' %}
 
 {% block body %}
-<div class="container">
+
+<!-- CHAT BUBBLES ! -->
+<div id="chat" class="container">
     <!-- With Name and Arrow - LEFT -->
     <div class="msg">
       <div class="bubble">
-        <div class="txt">
+        <div class="txt"> 
           <span class="name">GrandPyBot</span>
           <span class="timestamp">10:20 pm</span>      
           <span class="message">
@@ -20,20 +22,24 @@
     <div class="msg">
       <div class="bubble alt">
         <div class="txt">
-          <span class="name alt">Moi
-          </span>
-          <span class="timestamp">10:22 pm</span>
+          <span class="name alt">Moi</span>
+          <span class="timestamp">10:22 pm</span><!-- fait -->
           <p class="message">It's nuts, dude. Nuts</p>
         </div>
       </div>
     </div>  
 </div>
-<div class="container">
-    <!-- mettre ici la textearea et le submit -->
-    <textarea data-autoresize rows="2"></textarea>
-    <!-- <textarea class="bubble" autocomplete="off" ></textarea> -->
-    <!-- <input type="submit" class="input" id="ajaxButton" style="cursor: pointer;" value="Envoyer"> -->
-</div><br><br><br><br>
+
+<!-- USER INPUT -->
+<div id="container">
+    <div id="input">
+        <textarea data-autoresize rows="2" placeholder="Demandez à GrandPy ! :)" id="ajaxTextbox" ></textarea>
+        <input type="submit" id="ajaxButton" value="Envoyer">
+    </div>
+</div>
+
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 <script type="text/javascript" src="{{url_for('static', filename='test.js')}}"></script>
@@ -54,7 +60,7 @@
 {% endblock %}
 
 {# TODO
-    => how to fit image to the screen css
+    
 
     
 

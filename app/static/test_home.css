@@ -41,7 +41,6 @@ input#ajaxButton {
 body {
   background: #ece5dd;
   font-family: "Helvetica Neue", Helvetica;
-  /*, sans-serif*/
 }
 .container {
   width: 75%;
@@ -107,6 +106,7 @@ body {
   display: table;
   word-break: break-all;
   word-wrap: break-word;
+  min-width: 100px;
 }
 .msg .bubble .txt .timestamp {
   font-size: 11px;
@@ -118,18 +118,24 @@ body {
   text-transform: uppercase;
   color: #999;
 }
-.input{
+#container {
+    overflow: auto;
+    width: 75%;
+    margin: 0 auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
+    background-color: #D6D6D6;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+textarea {
+    font-family: "Helvetica Neue", Helvetica;
     font-size: 14px;
     font-weight: 500;
     padding: 0 15px 0 15px;
-    margin: auto;
     color: #2b2b2b;
-    display: inline;
-    word-break: break-all;
-    word-wrap: break-word;
-
-}
-textarea {
     overflow: hidden;
     resize: none;
     float: left;
@@ -138,10 +144,21 @@ textarea {
     display: block;
     background: #ebebeb;
     border-radius: 5px;
-    /*position: relative;*/
     margin: 10px 0 3px 25px;
     box-shadow: 0px 2px 1px rgba(0, 0, 0, 0.2);
 
+}
+#ajaxButton {
+    font-family: "Helvetica Neue", Helvetica;
+    cursor: pointer;
+    float: left;
+    border-radius: 50px;
+    background: black;
+    position: relative;
+    width: auto;
+    margin: 10px 25px 3px 5%;
+    padding: 1% 2% 1% 2%;
+    background: #dcf8c6;
 }
 footer {
     display: block;
@@ -154,4 +171,5 @@ footer {
     display: none;
     color: red;
   }
+  #
 }
