@@ -1,0 +1,101 @@
+[33mcommit 896f7437b58bcd1278de1246644945488ce1ca8d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Tue Aug 6 18:29:17 2019 +0200
+
+     dev front
+
+[33mcommit 55a424da8becf82355a301136d6c376ae7080c2e[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Mon Aug 5 18:26:14 2019 +0200
+
+    dev front
+
+[33mcommit e724febb63f3b24ca44e4c1fb628abe6174af6aa[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sun Aug 4 22:16:13 2019 +0200
+
+    beginning of a front prototype
+
+[33mcommit d748646fd43886bfe201af6360b5928db41ae3f5[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sat Aug 3 15:56:18 2019 +0200
+
+    dev ajaxPost
+
+[33mcommit f5606ec2868daf039bc72faf2e3d0fe613511a59[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Wed Jul 17 11:12:44 2019 +0200
+
+    formatage code
+
+[33mcommit 1360fc1c917cc2bf677eeb347f9ab67408e152dc[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Tue Jul 16 13:20:37 2019 +0200
+
+    developpement module chatbot
+
+[33mcommit d49c14a4f5a909c67e8dc96068e774af831345d5[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sun Jul 14 20:24:15 2019 +0200
+
+    suite dev
+
+[33mcommit a726459b1213db020e334f503ee422a195d079ad[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sun Jul 14 14:43:53 2019 +0200
+
+    test d'integration des saisie utilisateur et reponse chatbot dans le template
+
+[33mcommit 4504534472181ae4edb07c064ecf9b71bd6ee54a[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sun Jul 14 00:30:20 2019 +0200
+
+    modif parser et test parser
+
+[33mcommit c0cf03718ff7c9162c9e3ecfc21f2ca640a8cdf6[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sat Jul 13 20:57:55 2019 +0200
+
+    changement nom de package modules => toolbox
+
+[33mcommit 74411889c2e1e3dbab62f228d687e60b643f5ed8[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sat Jul 13 17:55:07 2019 +0200
+
+    ajout de documentation
+
+[33mcommit 38d0e51b8439c43b0ff19f592caf1e868215f32b[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sat Jul 13 17:40:14 2019 +0200
+
+    fin du module api_manager et de ses tests
+
+[33mcommit eb1f144deb9247b5bceec25da9dadb80b052bcd2[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sat Jul 13 16:06:25 2019 +0200
+
+    ajout de methode dans api_manager ainsi que les tests
+
+[33mcommit 97e7ca51079830fb5a6a37cfb861d7066c67e1e9[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Sat Jul 13 11:31:03 2019 +0200
+
+    ajout tests et api_manager
+
+[33mcommit 5d1294d3f3ef4c81bda070b8f3cd306deadc72c6[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Thu Jul 11 21:51:50 2019 +0200
+
+    requirements changes
+
+[33mcommit bb945d6ddea6d33bdd0819736bc93b93edb66e3d[m
+Author: Dorian Massoulier <dorian_massoulier@hotmail.com>
+Date:   Thu Jul 11 16:08:45 2019 +0200
+
+    .gitignore
+
+[33mcommit 4a3e2c766b30e487c79e0c7212a070584bb9c1fb[m
+Author: MassDo <46751454+MassDo@users.noreply.github.com>
+Date:   Thu Jul 11 15:45:20 2019 +0200
+
+    Initial commit
