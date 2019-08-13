@@ -6,8 +6,8 @@ from toolbox.chatbot import Chatbot
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ma_cle_secrette' # a refacturer
 
-@app.route('/form', methods=['GET', 'POST'])
-def form():
+@app.route('/home', methods=['GET', 'POST'])
+def home():
     """
         controler 
     """ 
@@ -27,7 +27,7 @@ def form():
 
     else:
         return render_template(
-        '/form.html',
+        '/pages/home.html',
         lat=40,
         lng=42
         ) 

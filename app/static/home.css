@@ -1,0 +1,117 @@
+body {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
+    display: grid;
+    grid-template-columns: 1.5fr 7fr 1.5fr;
+    grid-template-rows: 10vh 75vh 10vh;
+    grid-gap: 5px;
+    background-color: #ECE5DD;
+    padding: 5px;
+}
+header {
+    background-color: #DCF8C6;
+    border: solid 1px black;
+    grid-column: 1 / -1;
+}
+main {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    grid-column: 2;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: 9fr 1fr;
+    grid-template-rows: 9fr 1fr;
+    grid-gap: 5px;
+}
+
+/* zone of the chat bubble*/
+.response {
+    grid-column: span 2;
+    background-color: #ECE5DD;  
+    max-height: 1fr;
+    overflow: auto;
+}
+.zone {
+    overflow: auto;
+    width: 100%;
+    height: auto;
+}
+.bubble {
+    border:solid 1px #ccc;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+.bot {
+    background-color: white;
+    float: left;
+    max-width: 74.5%;
+}
+.map {
+    height: 240px;
+    width: 75%;
+}
+.user {
+    background-color: #DCF8C6;
+    float: right;
+    margin-right: 5px;
+    max-width: 74.5%;
+}
+
+/*zone of the user input*/
+.input {
+    display: flex;
+    justify-content: space-between;
+    grid-column: span 2;
+    grid-row: 2;
+}
+textarea {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    display: block;
+    width: 90%;
+/*    margin: 0.5%;*/
+    resize: none;
+    border: solid 1px grey;
+    border-radius: 30px;
+    padding: 0.6em;
+    outline: none;
+    height: 15px;
+    align-self: center;
+    overflow: hidden;
+}
+input {
+    background-color: #128C7E;
+    font-size: 10px;
+    border-radius: 30px;
+    display: block;
+    width: 50px;
+    height: 50px;
+    margin: 0.5%; 
+    padding: 0.2em 0.5em;
+    outline: none; 
+    align-self: center;
+}
+footer {
+    background-color: #DCF8C6;
+    border: solid 1px black; 
+    grid-column: 1/-1;
+}
+
+/* MEDIA */
+@media (max-width: 640px) {
+    main {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        display: grid;
+        grid-template-columns: 9fr 1fr;
+        grid-template-rows: 9fr 1fr;
+        grid-gap: 5px;
+        max-height: ;
+    }
+    .aside-left, .aside-right {
+        display: none;
+    }
+}

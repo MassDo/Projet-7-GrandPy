@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html' %}
+
+{% block body %}
+
+<aside class="aside-left" ></aside>
+
+<main class="main">
+    <div class="response">
+        <div class="zone">
+            <div class="bubble bot">Lorem ipsum dolor sit ametdeserunt mollit anim id est laborum.</div>
+        </div>
+         <div class="zone">
+            <div class="bubble user">Lorem ipsum dolor sit amet, lore eu aborum..</div>
+        </div> 
+        <div class="zone">
+            <div class="bubble user">Lorem ips Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</div>
+        </div>         
+             
+        <div class="zone">
+            <div class="bubble user">Lorem ipsum dolor sit amet, consedatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum..</div>
+        </div> 
+
+    </div>
+    <div class="input">
+        <textarea id="ajaxTextbox" onkeyup="textAreaAdjust(this)" placeholder="Demander à GrandPy !"></textarea>
+        <input id="ajaxButton" type="submit" value="Envoyer" style="cursor: pointer;">
+    </div>
+</main>
+
+<aside class="aside-right"></aside>
+
+<script type="text/javascript" src="{{url_for('static', filename='ajaxPost.js')}}"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEIv6g--KN1RoNNBDrkLM9UQnGQrkf3_Y&callback=initMap">
+</script>
+{% endblock %}

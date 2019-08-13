@@ -1,31 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <style>
-           /* Set the size of the div element that contains the map */
-          #map {
-            height: 600px;  /* The height is 400 pixels */
-            width: 75%;  /* The width is the width of the web page */
-           }
-        </style>
-        <title>GrandPy Bot</title>
-    </head>
-    <body>    
-        <h1>test</h1>
+<head>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 600px;  /* The height is 400 pixels */
+        width: 75%;  /* The width is the width of the web page */
+       }
+    </style>
+    <title>GrandPy Bot</title>
+</head>
+<body>    
+    <h1>test</h1>
 
-        <input type="text" id="ajaxTextbox" autocomplete="off">
-        <input type="submit" id="ajaxButton" style="cursor: pointer;" value="Envoyer">
-        <p id="address"></p>
-        <p id="title"></p>
-        <a  id="linkHref" href="" target="_blank"><p id="link"></p></a>    
-        <p id="intro"></p>
-        <p id="lat"></p>
-        <p id="lng"></p>  
-        <div id="map"></div>  
-        
-        <script type="text/javascript" src="{{url_for('static', filename='ajaxPost.js')}}"></script>
-        <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEIv6g--KN1RoNNBDrkLM9UQnGQrkf3_Y&callback=initMap">
-        </script>    
-    </body>
+    <input type="text" id="ajaxTextbox" autocomplete="off">
+    <input type="submit" id="ajaxButton" style="cursor: pointer;" value="Envoyer">
+    <p id="address"></p>
+    <p id="title"></p>
+    <a id="linkHref" href="" target="_blank"><p id="link"></p></a>    
+    <p id="intro"></p>
+    <p id="lat"></p>
+    <p id="lng"></p>  
+    <div id="map"></div>  
+    
+    <script type="text/javascript" src="{{url_for('static', filename='ajaxPost.js')}}"></script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEIv6g--KN1RoNNBDrkLM9UQnGQrkf3_Y&callback=initMap">
+    </script>    
+</body>
 </html>

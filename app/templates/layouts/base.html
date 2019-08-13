@@ -1,16 +1,12 @@
 <!DOCTYPE html>
-
 <html>
-
     <meta charset="utf-8">
     <head>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='test_home.css') }}">
-    </head>
-    {%include "layouts/partials/header.html"%}  
-
-        <body>
-            {% block body %} {% endblock body %} 
-        </body>
-    <!-- {%include "layouts/partials/footer.html"%} -->
-    
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    </head>    
+    <body>
+        {%include "layouts/partials/header.html"%} 
+        {% block body %} {% endblock body %} 
+        {%include "layouts/partials/footer.html"%}
+    </body>
 </html>
