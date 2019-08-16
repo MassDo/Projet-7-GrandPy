@@ -1,1 +1,1 @@
-web: gunicorn app.wsgi
+web: gunicorn Projet-7-GrandPy.wsgi
