@@ -1,3 +1,5 @@
+import random
+
 from .parser import Parser
 from .api_manager import ApiManager
 
@@ -8,7 +10,7 @@ class Chatbot:
     """
     text_parsed_list = []
     proximity = 0
-
+    
     def __init__(self):
         self.input = ""
         self.text = ""
@@ -24,6 +26,22 @@ class Chatbot:
             return the bot answer modulate by the proximity
             parameter of the method ApiManager.get_intro()
         """ 
+        intro_address = [
+            "Humm, je pense que l'adresse que tu recherches est: ",
+            "Alors... Je peux me tromper mais je me souviens d'une adresse à cet endroit: ",
+            "Je trouve une adresse a cet endroit j'espere que c'est la bonne: "
+        ]
+        intro_text = [
+            "Sais tu que ", 
+            "Ah je me souviens d'une histoire à cet endroit: ",
+            "Attend laisse moi réfléchir... AH oui une histoire sur ce lieu: "
+        ]
+        outro_text = [
+            " ... Bon excuse moi minot mais je suis en retard pour ma sieste si tu veux la suite clique plutot ici: ",
+            " ... Ah ! J'ai oublié de prendre mes pillules ! Tu m'excuseras mais si tu veux la suite de l'histoire c'est ici: ",
+            " ... Ooups attends, j'ai encore la mémoire qui flanche, si tu veux la suite regarde plutot ici: "
+        ]
+
         self.input = user_input            
         
         # Parsing
@@ -45,7 +63,7 @@ class Chatbot:
             data_finder.place_finder()
             data_finder.articles_nearby()
             self.name = data_finder.name
-            self.address = data_finder.address
+            self.address = random.choice(intro_address) + data_finder.address
             self.latitude = data_finder.latitude
             self.longitude = data_finder.longitude
  
@@ -54,14 +72,14 @@ class Chatbot:
 
             data_finder.get_intro(Chatbot.proximity)
             self.link = data_finder.link
-            self.text = "Sais tu que " + data_finder.intro
+            self.text = random.choice(intro_text) + data_finder.intro[0:200] + random.choice(outro_text)
         except:
-            print("pas de résultat")
+            print("no result or error in answer method")
         # data into the template
         
-        if self.text == "":
-            self.text = "Désolé mon ptit j'ai la mémoire qui flanche\
- essaye un autre endroit..."
+ #        if self.text == "":
+ #            self.text = "Désolé mon ptit j'ai la mémoire qui flanche\
+ # je n'ai pas d'histoires sur cet endroit..."
 
 
 

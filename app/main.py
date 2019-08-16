@@ -24,17 +24,8 @@ def home():
             lat=chatbot.latitude,
             lng=chatbot.longitude
         )
-
     else:
-        return render_template(
-        '/pages/home.html',
-        lat=40,
-        lng=42
-        ) 
-
-@app.route('/test')   
-def test():
-    return render_template('pages/test_home.html')
+        return render_template('/pages/home.html') 
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -7,30 +7,16 @@ document.getElementById("ajaxButton").onclick = function() {
     var userInput = textarea.value;
     var text = userInput;
     // user new bubble chat
-    bubble(userInput, responseZone, textarea);
-    // ajax request
-    makeRequest('/home', text, responseZone); 
+    if (text != "") {
+        bubble(userInput, responseZone, textarea);
+        // ajax request
+        makeRequest('/home', text, responseZone); 
+    }
+    else {
+        // faire une bulle réponse du bot qui demande de saisir du texte
+    }    
 };
 
-// ADD USER CHAT BUBBLE
-function bubble(userInput, responseZone, textarea) {
-    // NEW USER CHAT BUBBLE (if userInput not empty)
-    if (userInput != "") {
-        var zone = document.createElement("div");
-        zone.classList.add("zone");
-        responseZone.insertAdjacentElement("beforeend", zone);
-        var bubble = document.createElement("div");
-        bubble.className = "bubble user";
-        bubble.innerHTML = userInput;
-        zone.appendChild(bubble);
-    }
-    // SCROLL DOWN
-    responseZone.scrollTop = responseZone.scrollHeight;
-    // CLEAR TEXTAREA
-    textarea.value = "";    
-    // restart userInput height
-    textarea.style.height = "15px";
-}
 // AJAX REQUEST
 function makeRequest(url, text) {
     httpRequest = new XMLHttpRequest();     
@@ -47,14 +33,7 @@ function makeRequest(url, text) {
 function callBack() {
     if (httpRequest.readyState === XMLHttpRequest.DONE) { // if request is done
         if (httpRequest.status === 200) { // if the ressource is find
-            var response = JSON.parse(httpRequest.responseText) // transform a json into a JS object
-/*            newMap(responseZone);*/
-            // remplir les cases ICI
-            /*document.getElementById("address").innerHTML = response.address
-            document.getElementById("title").innerHTML = response.title
-            document.getElementById("link").innerHTML = response.link
-            document.getElementById("linkHref").href = response.link
-            document.getElementById("intro").innerHTML = response.intro*/
+            var response = JSON.parse(httpRequest.responseText) // json into a JS object
             initMap = function initMap(latitude, longitude) {          
                 // The location of address
                 var position_marqueur = {
@@ -75,8 +54,8 @@ function callBack() {
                     map: map
                 });             
             };
-            
             /*document.getElementById("map").innerHTML = ""*/
+            botResponse(response);
             if (response.lat !== 0 && response.lng !== 0 ){
                 newMap(responseZone);
                 initMap(response.lat, response.lng)
@@ -90,7 +69,28 @@ function callBack() {
     var responseZone = document.querySelector(".response");
     responseZone.scrollTop = responseZone.scrollHeight;
 } 
-// NEW MAP
+
+/*FUNCTIONS USED*/
+// add user chat bubble
+function bubble(userInput, responseZone, textarea) {
+    // NEW USER CHAT BUBBLE (if userInput not empty)
+    if (userInput != "") {
+        var zone = document.createElement("div");
+        zone.classList.add("zone");
+        responseZone.insertAdjacentElement("beforeend", zone);
+        var bubble = document.createElement("div");
+        bubble.className = "bubble user";
+        bubble.innerHTML = userInput;
+        zone.appendChild(bubble);
+    }
+    // SCROLL DOWN
+    responseZone.scrollTop = responseZone.scrollHeight;
+    // CLEAR TEXTAREA
+    textarea.value = "";    
+    // restart userInput height
+    textarea.style.height = "15px";
+}
+// new map
 function newMap() {
     var zone = document.createElement("div");
     zone.classList.add("zone");
@@ -99,7 +99,48 @@ function newMap() {
     bubble.className = "bubble bot map";
     zone.appendChild(bubble);
 }
-// Adapt text area window size to his content
+// new bot response
+function botResponse(response) {
+    var dataList = [
+        response.address,
+        response.title,        
+        response.intro
+    ]
+    for (let data of dataList) {
+        if (data) {
+            let info = document.createTextNode(data);
+            var zone = document.createElement("div");
+            if (data === response.intro) {
+                responseZone.insertAdjacentElement("beforeend", zone);
+                var bubble = document.createElement("div");
+                zone.appendChild(bubble);
+                bubble.className = "bubble bot";
+                var aElt = document.createElement("a");
+                bubble.appendChild(info);
+                var brElt = document.createElement("br");
+                bubble.appendChild(brElt);
+                var brElt2 = document.createElement("br");
+                bubble.appendChild(brElt2);
+                bubble.appendChild(aElt);
+                aElt.href = response.link;
+                aElt.setAttribute("target","_blank");        
+                aElt.innerHTML = response.link; 
+            }
+            else {
+                zone.classList.add("zone");
+                responseZone.insertAdjacentElement("beforeend", zone);
+                var bubble = document.createElement("div");
+                bubble.className = "bubble bot";
+                zone.appendChild(bubble);
+                bubble.appendChild(info);
+            }    
+        }
+        else {
+            console.log(data + "pas d'informations")
+        }  
+    }
+}
+// Adapting textarea window size to his content.
 function textAreaAdjust(o) { 
     o.style.height = "0px";      
     console.log(o.style.height);

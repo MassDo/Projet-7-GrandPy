@@ -2,7 +2,7 @@ body {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     display: grid;
     grid-template-columns: 1.5fr 7fr 1.5fr;
-    grid-template-rows: 10vh 75vh 10vh;
+    grid-template-rows: 5vh 90vh 5vh;
     grid-gap: 5px;
     background-color: #ECE5DD;
     padding: 5px;
@@ -16,7 +16,7 @@ main {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     font-size: 13px;
     grid-column: 2;
-    grid-row: 2;
+    grid-row: 2 ;
     display: grid;
     grid-template-columns: 9fr 1fr;
     grid-template-rows: 9fr 1fr;
@@ -41,13 +41,15 @@ main {
     padding: 5px;
     margin-top: 5px;
     margin-bottom: 5px;
-    word-break: break-all;
-    word-wrap: break-word;
+    overflow: wrap;
 }
 .bot {
     background-color: white;
     float: left;
     max-width: 74.5%;
+}
+.first {
+/*margin-top: 100px;*/
 }
 .map {
     height: 240px;
@@ -72,7 +74,6 @@ textarea {
     font-size: 13px;
     display: block;
     width: 90%;
-/*    margin: 0.5%;*/
     resize: none;
     border: solid 1px grey;
     border-radius: 30px;
