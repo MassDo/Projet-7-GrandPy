@@ -1,7 +1,8 @@
 
 import re
 
-import nltk
+# import nltk pb with heroku deplaoyement
+# heroku cannot download nltk
 
 from .stopwords import stw
 
@@ -54,9 +55,9 @@ class Parser():
         sw = set()
         # ADD openclassrooms(oc) SW        
         sw.update(stw)
-        # Add NLTK SW        
-        nltk_module_corpus_stopwords = nltk.corpus.stopwords.words('french')
-        sw.update(nltk_module_corpus_stopwords)
+        # Add NLTK SW (pb with heroku)       
+        # nltk_module_corpus_stopwords = nltk.corpus.stopwords.words('french')
+        # sw.update(nltk_module_corpus_stopwords)
         # Make a temp list of tokens without stop words
         tokens_pop_sw = [w for w in self.tokens if not w in list(sw)]
         # Make a str from this list
