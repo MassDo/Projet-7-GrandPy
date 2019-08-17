@@ -6,7 +6,7 @@ from app.toolbox.chatbot import Chatbot
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ma_cle_secrette' # a refacturer
 
-@app.route('/magicalgrandpy.herokuapp.com/', methods=['GET', 'POST'])
+@app.route('magicalgrandpy.herokuapp.com/', methods=['GET', 'POST'])
 def home():
     """
         controler 
@@ -25,7 +25,7 @@ def home():
             lng=chatbot.longitude
         )
     else:
-        return render_template('/form.html') 
+        return render_template('pages/home.html') 
 
 if __name__ == '__main__':
     app.run(debug=True)
