@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 
-from toolbox.form import AddressForm
-from toolbox.chatbot import Chatbot
+from app.toolbox.form import AddressForm
+from app.toolbox.chatbot import Chatbot
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ma_cle_secrette' # a refacturer
