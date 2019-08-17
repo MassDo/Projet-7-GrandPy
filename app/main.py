@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, jsonify
 
-from app.toolbox.form import AddressForm
-from app.toolbox.chatbot import Chatbot
+from toolbox.form import AddressForm
+from toolbox.chatbot import Chatbot
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ma_cle_secrette' # a refacturer
 
-@app.route('/magicalgrandpy.herokuapp.com/', methods=['GET', 'POST'])
+@app.route('/home', methods=['GET', 'POST'])
 def home():
     """
         controler 
@@ -28,7 +28,8 @@ def home():
         return render_template('/pages/home.html') 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
+    # app.run(debug=True)
 
         
     
