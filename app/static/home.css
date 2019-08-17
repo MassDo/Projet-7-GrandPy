@@ -102,7 +102,7 @@ footer {
 }
 
 /* MEDIA */
-@media (max-width: 640px) {
+@media (max-width: 1100px) {
     main {
         grid-column: 1 / -1;
         grid-row: 2;
