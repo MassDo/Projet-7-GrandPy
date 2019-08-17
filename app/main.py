@@ -6,7 +6,7 @@ from app.toolbox.chatbot import Chatbot
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'ma_cle_secrette' # a refacturer
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     """
         controler 
