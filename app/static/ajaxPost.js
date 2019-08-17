@@ -10,7 +10,7 @@ document.getElementById("ajaxButton").onclick = function() {
     if (text != "") {
         bubble(userInput, responseZone, textarea);
         // ajax request
-        makeRequest('/home', text, responseZone); 
+        makeRequest('/', text, responseZone); 
     }
     else {
         // faire une bulle réponse du bot qui demande de saisir du texte
