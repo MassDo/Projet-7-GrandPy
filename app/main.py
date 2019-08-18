@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-import for heroku
+# import for heroku
 from app.toolbox.form import AddressForm
 from app.toolbox.chatbot import Chatbot
 
