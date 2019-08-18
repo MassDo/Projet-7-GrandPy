@@ -1,8 +1,33 @@
 var httpRequest;
 var responseZone = document.querySelector(".response");
 
-// ACTION WHEN SUBMIT
-document.getElementById("ajaxButton").onclick = function() {
+// ACTION WHEN CLICK ON SUBMIT OR ENTER
+var validation = document.getElementById("ajaxButton");
+validation.onclick = search;
+
+document.addEventListener("keydown", function(e) {
+    // pourquoi devoir reécrire la fonction complete au lieu de search ?
+    // à refacturer
+    if (e.code === 'Enter') {
+        var textarea = document.getElementById("ajaxTextbox")
+        var userInput = textarea.value;
+        var text = userInput;
+        // user new bubble chat
+        if (text != "") {
+            bubble(userInput, responseZone, textarea);
+            // ajax request
+            makeRequest('/', text, responseZone); 
+        }
+        else {
+            // faire une bulle réponse du bot qui demande de saisir du texte
+        }   
+    }
+})
+
+
+// SEARCH
+function search() {
+    console.log("test search")
     var textarea = document.getElementById("ajaxTextbox")
     var userInput = textarea.value;
     var text = userInput;
@@ -14,8 +39,8 @@ document.getElementById("ajaxButton").onclick = function() {
     }
     else {
         // faire une bulle réponse du bot qui demande de saisir du texte
-    }    
-};
+    }   
+}
 
 // AJAX REQUEST
 function makeRequest(url, text) {
@@ -141,8 +166,15 @@ function botResponse(response) {
     }
 }
 // Adapting textarea window size to his content.
-function textAreaAdjust(o) { 
-    o.style.height = "0px";      
-    console.log(o.style.height);
-    o.style.height = (o.scrollHeight)+"px";
+function textAreaAdjust(e) { 
+    e.style.height = "0px";      
+    e.style.height = (e.scrollHeight)+"px";
+}
+function runScript(e) {
+    //See notes about 'which' and 'key'
+    if (e.keyCode == 13) {
+        var tb = document.getElementById("ajaxButton");
+        eval(tb.value);
+        return false;
+    }
 }           
