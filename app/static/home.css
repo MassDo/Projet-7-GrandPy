@@ -1,3 +1,6 @@
+/** {
+    box-sizing: border-box;
+}*/
 body {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif; 
     display: grid;
@@ -102,7 +105,7 @@ footer {
 }
 
 /* MEDIA */
-@media (max-width: 1100px) {
+@media (max-width: 640px) {
     main {
         grid-column: 1 / -1;
         grid-row: 2;

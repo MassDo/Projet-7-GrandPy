@@ -26,10 +26,13 @@ class Chatbot:
             return the bot answer modulate by the proximity
             parameter of the method ApiManager.get_intro()
         """ 
+        # intro_name = [
+            
+        # ]
         intro_address = [
             "Humm, je pense que l'adresse que tu recherches est: ",
             "Alors... Je peux me tromper mais je me souviens d'une adresse à cet endroit: ",
-            "Je trouve une adresse a cet endroit j'espere que c'est la bonne: "
+            "Je trouve une adresse à cet endroit j'espere que c'est la bonne: "
         ]
         intro_text = [
             "Sais tu que ", 
