@@ -106,7 +106,66 @@ footer {
     grid-column: 1/-1;
 }
 
-/* MEDIA */
+/* animation*/
+.loader {
+    background-color: rgba(0, 0, 255, 0.05);
+    position: absolute;
+    top: -30px;
+    left: -30px;
+    height: 110%;
+    width: 110%;
+}
+
+#loader {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    overflow: hidden;
+}
+
+#loader > div {
+    background: black;
+    width: 10px;
+    height: 100px;
+    transform-origin: top center;
+    animation: load 2.5s infinite linear;
+}
+
+@keyframes load {
+    0% {
+        transform: rotate(0deg);
+    }
+    25% {
+        transform: rotate(-90deg);
+        margin-left: -5px;
+        margin-top: 0;
+        transform-origin: top center;
+    }
+    50% {
+        margin-left: -5px;
+        margin-top: 95px;
+        transform-origin: top center;
+        transform: rotate(-90deg);
+    }
+    75% {
+        margin-left: 95px;
+        margin-top: 0;
+        transform-origin: bottom center;
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(0deg);
+        transform-origin: bottom center;
+        margin-left: 0;
+        margin-top: 0;
+    }
+}
+
+/* MEDIA BREAK POINT */
 @media (max-width: 640px) {
     main {
         grid-column: 1 / -1;

@@ -1,101 +1,72 @@
-var httpRequest;
-var responseZone = document.querySelector(".response");
+/*Function used*/
 
-// ACTION WHEN CLICK ON SUBMIT OR ENTER
-var validation = document.getElementById("ajaxButton");
-validation.onclick = search;
-
-document.addEventListener("keydown", function(e) {
-    // pourquoi devoir reécrire la fonction complete au lieu de search ?
-    // à refacturer
-    if (e.code === 'Enter') {
-        var textarea = document.getElementById("ajaxTextbox")
-        var userInput = textarea.value;
-        var text = userInput;
-        // user new bubble chat
-        if (text != "") {
-            bubble(userInput, responseZone, textarea);
-            // ajax request
-            makeRequest('/', text, responseZone); 
-        }
-        else {
-            // faire une bulle réponse du bot qui demande de saisir du texte
-        }   
-    }
-})
-
-
-// SEARCH
-function search() {
-    console.log("test search")
-    var textarea = document.getElementById("ajaxTextbox")
-    var userInput = textarea.value;
-    var text = userInput;
-    // user new bubble chat
-    if (text != "") {
-        bubble(userInput, responseZone, textarea);
-        // ajax request
-        makeRequest('/', text, responseZone); 
-    }
-    else {
-        // faire une bulle réponse du bot qui demande de saisir du texte
-    }   
+// remove function
+Element.prototype.remove = function() {
+    this.parentElement.removeChild(this);
 }
-
-// AJAX REQUEST
-function makeRequest(url, text) {
-    httpRequest = new XMLHttpRequest();     
-    if (!httpRequest) {
-        alert('Abandon :( Impossible de créer une instance de XMLHTTP');
-        return false;
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
     }
-    httpRequest.onreadystatechange = callBack; // callback function
-    httpRequest.open('POST', url);
-    httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    httpRequest.send('userInput=' + encodeURIComponent(text));
+}
+// AJAX REQUEST
+function makeRequest(url, text, responseZone) {
+    return new Promise((resolve) => {
+        httpRequest = new XMLHttpRequest();     
+        if (!httpRequest) {
+            alert('Abandon :( Impossible de créer une instance de XMLHTTP');
+            return false;
+        }
+        httpRequest.onreadystatechange = function() {
+            if (httpRequest.readyState === XMLHttpRequest.DONE) { // if request is done
+                if (httpRequest.status === 200) { // if the ressource is find
+                    resolve(httpRequest)
+                }else {
+                    reject(httpRequest)
+                }
+            }
+        }
+        httpRequest.open('POST', url);
+        httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        httpRequest.send('userInput=' + encodeURIComponent(text)); 
+    })    
 }
 // AJAX CALLBACK 
-function callBack() {
-    if (httpRequest.readyState === XMLHttpRequest.DONE) { // if request is done
-        if (httpRequest.status === 200) { // if the ressource is find
-            var response = JSON.parse(httpRequest.responseText) // json into a JS object
-            initMap = function initMap(latitude, longitude) {          
-                // The location of address
-                var position_marqueur = {
-                    lat:latitude , lng:longitude
-                };
-                // The map, centered at address
-                let mapClassNodeList = document.querySelectorAll(".map")
-                let lastMap = mapClassNodeList[mapClassNodeList.length - 1];
-                var map = new google.maps.Map(
-                    lastMap, {
-                        zoom: 10,
-                        center: position_marqueur
-                    }
-                );
-                // The marker, positioned at address
-                var marker = new google.maps.Marker({
-                    position: position_marqueur,
-                    map: map
-                });             
-            };
-            /*document.getElementById("map").innerHTML = ""*/
-            botResponse(response);
-            if (response.lat !== 0 && response.lng !== 0 ){
-                newMap(responseZone);
-                initMap(response.lat, response.lng)
-            }        
-        } 
-        else {
-          alert('Il y a eu un problème avec la requête.');
-        }
-    }
+function callBack(httpRequest) {
+    var response = JSON.parse(httpRequest.responseText); // json into a JS object
+    var initMap = function (latitude, longitude) {          
+        // The location of address
+        var position_marqueur = {
+            lat:latitude , lng:longitude
+        };
+        // The map, centered at address
+        let mapClassNodeList = document.querySelectorAll(".map")
+        let lastMap = mapClassNodeList[mapClassNodeList.length - 1];
+        var map = new google.maps.Map(
+            lastMap, {
+                zoom: 10,
+                center: position_marqueur
+            }
+        );
+        // The marker, positioned at address
+        var marker = new google.maps.Marker({
+            position: position_marqueur,
+            map: map
+        });             
+    };
+    /*document.getElementById("map").innerHTML = ""*/
+    botResponse(response);
+    if (response.lat !== 0 && response.lng !== 0 ){
+        newMap(responseZone);
+        initMap(response.lat, response.lng)
+    }        
     // SCROLL DOWN
     var responseZone = document.querySelector(".response");
     responseZone.scrollTop = responseZone.scrollHeight;
 } 
 
-/*FUNCTIONS USED*/
 // add user chat bubble
 function bubble(userInput, responseZone, textarea) {
     // NEW USER CHAT BUBBLE (if userInput not empty)
@@ -177,4 +148,58 @@ function runScript(e) {
         eval(tb.value);
         return false;
     }
-}           
+}
+// LOADER during ajax request
+function load() {
+    let body = document.querySelector("body")
+    // loader creation
+    let loader = document.createElement("div")
+    loader.className = "loader"
+    // rajouter la div id loader au milieu de la fenetre
+    let box = document.createElement("div")
+    box.id = "loader"
+    let divElt = document.createElement("div")
+    box.appendChild(divElt)
+    loader.appendChild(box)
+    body.appendChild(loader)
+}
+// SEARCH (lauching the ajax and loader)
+function search(loader_function) {
+    var textarea = document.getElementById("ajaxTextbox")
+    var userInput = textarea.value
+    var text = userInput    
+    // user new bubble chat if there is text
+    if (text != "") {
+        bubble(userInput, responseZone, textarea)
+        loader_function();
+        // ajax request
+        makeRequest('/', text, responseZone).then((response) => {
+            callBack(response);
+            console.log("fin de réponse");
+            var loader = document.getElementsByClassName("loader")
+            loader.remove();
+        });
+    }
+    else {
+        // faire une bulle réponse du bot qui demande de saisir du texte
+    }   
+}
+
+
+// ACTION WHEN CLICK ON SUBMIT OR ENTER
+var httpRequest;
+var responseZone = document.querySelector(".response")
+var validation = document.getElementById("ajaxButton")
+
+validation.onclick = () => {
+    search(load); 
+}
+document.addEventListener("keydown", function(e) {
+    if (e.code === 'Enter') {
+        search(load);   
+    }
+})
+
+
+
+
