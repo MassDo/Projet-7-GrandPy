@@ -175,7 +175,6 @@ function search(loader_function) {
         // ajax request
         makeRequest('/', text, responseZone).then((response) => {
             callBack(response);
-            console.log("fin de réponse");
             var loader = document.getElementsByClassName("loader")
             loader.remove();
         });
