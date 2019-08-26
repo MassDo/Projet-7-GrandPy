@@ -2,12 +2,9 @@ import os
 
 import requests
 
-from boto.s3.connection import S3Connection
-API_KEYS = S3Connection(os.environ['API_KEY_GOOGLE'])
-
 
 # key recovery
-# API_KEYS = os.environ.get('KEY_API_GOOGLE')
+API_KEYS = os.environ.get('API_KEY_GOOGLE')
 # API_KEYS = "AIzaSyAsApTDo-7l_I8YGIrT8JhR5G50xrz0iKw"
 
 class ApiManager:
