@@ -98,8 +98,7 @@ function newMap() {
 // new bot response
 function botResponse(response) {
     var dataList = [
-        response.address,
-        response.title,        
+        response.address,        
         response.intro
     ]
     for (let data of dataList) {
@@ -128,7 +127,10 @@ function botResponse(response) {
                 var bubble = document.createElement("div");
                 bubble.className = "bubble bot";
                 zone.appendChild(bubble);
-                bubble.appendChild(info);
+                let title = document.createTextNode(
+                    "Voila voila..." + response.title + ". ");
+                bubble.appendChild(title);
+                bubble.appendChild(info);                
             }    
         }
         else {
@@ -183,7 +185,6 @@ function search(loader_function) {
         // faire une bulle réponse du bot qui demande de saisir du texte
     }   
 }
-
 
 // ACTION WHEN CLICK ON SUBMIT OR ENTER
 var httpRequest;

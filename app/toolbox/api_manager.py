@@ -2,9 +2,13 @@ import os
 
 import requests
 
+from boto.s3.connection import S3Connection
+API_KEYS = S3Connection(os.environ['API_KEY_GOOGLE'])
+
+
 # key recovery
 # API_KEYS = os.environ.get('KEY_API_GOOGLE')
-API_KEYS = "AIzaSyAsApTDo-7l_I8YGIrT8JhR5G50xrz0iKw"
+# API_KEYS = "AIzaSyAsApTDo-7l_I8YGIrT8JhR5G50xrz0iKw"
 
 class ApiManager:
     """
@@ -23,7 +27,7 @@ class ApiManager:
         """
         self.parsed_text = parsed_text
         self.name = ""
-        self.address = ""
+        self.address = ""   
         self.latitude = float()
         self.longitude = float()
         self.intro = ""
@@ -33,8 +37,9 @@ class ApiManager:
 
     def place_finder(self):
         """ 
-            The method place_finder must implement the instances attributs
-            from the instance attribut parsed_text and the google place API:
+            The method place_finder must implement the following
+            instances attributs from the instance attribut
+            parsed_text and the google place API:
                 => name
                 => address
                 => latitude
@@ -64,13 +69,28 @@ class ApiManager:
             nearby 500 meters radius from the coordinates point.
             The list returned is ordered by ascendant distance 
             from the place coordinates
+
+            if you want to search articles via coordinates
+            use the api_payload and self.articles_id
+            commented section.
         """
+
+        # uncomment this for searching articles via coordinates
+        # api_payload = {
+        #     "action": "query",
+        #     "list": "geosearch",
+        #     "gscoord": "{}|{}".format(self.latitude, self.longitude), 
+        #     "gsradius": 500, # radius in meters 
+        #     "gslimit": 10, # number max of articles
+        #     "format": "json"                  
+        # } 
+
+        # comment api_payload for searching articles via coordinates
         api_payload = {
             "action": "query",
-            "list": "geosearch",
-            "gscoord": "{}|{}".format(self.latitude, self.longitude), 
-            "gsradius": 500, # radius in meters 
-            "gslimit": 10, # number max of articles
+            "list": "search",
+            "srlimit": "1",
+            "srsearch": self.parsed_text,
             "format": "json"                  
         }      
         response = requests.get(
@@ -78,8 +98,14 @@ class ApiManager:
             params=api_payload
         ).json()  
 
+        # uncomment following self.articles_id for searching articles via coordinates
+        # self.articles_id = [
+        #     article["pageid"] for article in response["query"]["geosearch"]
+        # ]
+
+        # comment self.articles_id for searching articles via coordinates
         self.articles_id = [
-            article["pageid"] for article in response["query"]["geosearch"]
+            article["pageid"] for article in response["query"]["search"]
         ]
 
     def get_intro(self, proximity=0):
@@ -111,5 +137,5 @@ class ApiManager:
 if __name__ == '__main__':
 
     test = ApiManager("Elysée")
-    test.place_finder()
-    print(test.name)
+    test.articles_nearby()
+    print(test.articles_id)

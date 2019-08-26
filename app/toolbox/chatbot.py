@@ -36,7 +36,7 @@ class Chatbot:
         ]
         intro_text = [
             "Sais tu que ", 
-            "Ah je me souviens d'une histoire à cet endroit: ",
+            "Ah je me souviens d'une histoire: ",
             "Attend laisse moi réfléchir... AH oui une histoire sur ce lieu: "
         ]
         outro_text = [
