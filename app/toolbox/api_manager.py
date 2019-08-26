@@ -2,10 +2,7 @@ import os
 
 import requests
 
-
-# key recovery
 API_KEYS = os.environ.get('API_KEY_GOOGLE')
-# API_KEYS = "AIzaSyAsApTDo-7l_I8YGIrT8JhR5G50xrz0iKw"
 
 class ApiManager:
     """
