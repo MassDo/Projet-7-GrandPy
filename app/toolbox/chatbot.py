@@ -87,13 +87,4 @@ class Chatbot:
 
 
 if __name__ == '__main__':
-    chatbot = Chatbot()
-    chatbot.answer("Elysée")
-    print(
-        chatbot.address,
-        chatbot.name,
-        chatbot.link,
-        chatbot.text,
-        chatbot.latitude,
-        chatbot.longitude
-    )
+    
