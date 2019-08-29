@@ -83,8 +83,3 @@ class Chatbot:
         if self.text == "":
             self.text = "Désolé mon ptit j'ai la mémoire qui flanche\
  je n'ai pas d'histoires sur cet endroit..."
-
-
-
-if __name__ == '__main__':
-    
