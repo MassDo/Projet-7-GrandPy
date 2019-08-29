@@ -14,22 +14,28 @@ body {
     padding: 5px;
 }
 header {
-/*    background-color: rgba(66,133,244,0.6);*/
-    display: inline-block;
+    display: flex;
     font-family: Rock Salt, sans-serif;
     color: #ECE5DD;
     background-color: rgba(18,140,126, 0.5);
     border-radius: 10px;
-    padding: 2px;
     box-shadow: 0 5px 5px rgba(18,140,126, 0.2);
-    /*box-shadow: 10px -5px 5px 1px rgba(0,0,0,0.3);*/
     grid-column: 1 / -1;
-    text-align: center;
-    overflow: hidden;
+    align-items: center;
+    justify-content: space-between;
 }
+
 .title {
-    font-size: 28px;
-    height: auto;   
+    display: block;
+    font-size: 4vw; 
+    margin-left: 20%;
+}
+img {
+    display: block;
+    margin-bottom: 8px;
+    max-width: 10%;
+    height: auto;
+    max-width: 40px;
 }
 main {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
@@ -253,6 +259,10 @@ i {
     .aside-left, .aside-right {
         display: none;
     }
+    /*.title {
+        font-size: 5vw;  
+    }*/
 }
 
+    
 

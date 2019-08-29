@@ -66,7 +66,6 @@ function callBack(httpRequest) {
     var responseZone = document.querySelector(".response");
     responseZone.scrollTop = responseZone.scrollHeight;
 } 
-
 // add user chat bubble
 function bubble(userInput, responseZone, textarea) {
     // NEW USER CHAT BUBBLE (if userInput not empty)
@@ -171,7 +170,7 @@ function search(loader_function) {
     var userInput = textarea.value
     var text = userInput    
     // user new bubble chat if there is text
-    if (text != "") {
+    if ((text != "") && (text.replace(/\s/g, '').length)) {
         bubble(userInput, responseZone, textarea)
         loader_function();
         // ajax request
@@ -185,8 +184,7 @@ function search(loader_function) {
         // faire une bulle réponse du bot qui demande de saisir du texte
     }   
 }
-
-// ACTION WHEN CLICK ON SUBMIT OR ENTER
+// ACTION WHEN CLICKING ON SUBMIT OR ENTER
 var httpRequest;
 var responseZone = document.querySelector(".response")
 var validation = document.getElementById("ajaxButton")
