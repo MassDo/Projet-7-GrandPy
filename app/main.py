@@ -1,9 +1,10 @@
 from flask import Flask, render_template, request, jsonify
 
-# import for heroku
+# import for production server (heroku)
 from app.toolbox.form import AddressForm
 from app.toolbox.chatbot import Chatbot
 
+# imports for development server
 # from toolbox.form import AddressForm
 # from toolbox.chatbot import Chatbot
 
@@ -32,7 +33,10 @@ def home():
         return render_template('/pages/home.html') 
 
 if __name__ == '__main__':
+    # run for production server
     app.run()
+
+    # run for development server
     # app.run(debug=True)
 
         

@@ -27,7 +27,7 @@ header {
 
 .title {
     display: block;
-    font-size: 4vw; 
+    font-size: 25px; 
     margin-left: 20%;
 }
 img {
@@ -259,9 +259,11 @@ i {
     .aside-left, .aside-right {
         display: none;
     }
-    /*.title {
-        font-size: 5vw;  
-    }*/
+    .title {
+        display: block;
+        font-size: 4vw; 
+        margin-left: 20%;
+    }
 }
 
     
