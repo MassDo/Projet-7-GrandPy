@@ -4,26 +4,26 @@
 
 The following steps are for windows:
 
-Clone this repository with:
-```
+**Clone this repository with:**
+```sh
 $git clone https://github.com/MassDo/Projet-7-GrandPy.git
 ```
-Install a virtual environment with venv like this:
-```
+**Install a virtual environment with venv like this:**
+```sh
 python -m venv venv
 ```
-Activate the virtual environment
-```
+**Activate the virtual environment**
+```sh
 venv\scripts\activate
 ```
-Install dependencies with pip
-```
+**Install dependencies with pip :**
+```sh
 pip install -r requirements.txt
 ```
 
 ## Run the app
 
-```
+```sh
 python app\main.py
 ```
 The application is running on local http://127.0.0.1:5000/
@@ -38,7 +38,7 @@ Deploy the app with this tutorial:
 
 https://devcenter.heroku.com/articles/git
 
-wait you have one Last thing to do ! you need to go to the main.py module and do this changes:
+Wait you have one Last thing to do ! You need to go to the main.py module and do this changes:
 
 ![main.py_changes](images/prod.png)
 
