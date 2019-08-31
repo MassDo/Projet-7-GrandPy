@@ -7,7 +7,7 @@ from flask import Flask, render_template, request, jsonify
 from toolbox.chatbot import Chatbot
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ma_cle_secrette' # à refacturer
+app.config['SECRET_KEY'] = 'ma_cle_secrette' 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
