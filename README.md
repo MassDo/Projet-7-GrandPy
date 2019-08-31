@@ -1,5 +1,9 @@
 # Projet-7-GrandPy
 
+This project is a web application,
+
+A simple chatbot that give you address, map and short story about a place you are looking for ! ;)
+
 ## Installation
 
 The following steps are for windows:
