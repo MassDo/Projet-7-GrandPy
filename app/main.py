@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 
-# import for production server (heroku)
+# import for Heroku
 # from app.toolbox.chatbot import Chatbot
 
 # imports for development server
