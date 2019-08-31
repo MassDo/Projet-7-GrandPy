@@ -29,8 +29,8 @@ class Parser():
             att: 
                 text: return a str of the sentence parsed
         """
-        self.raw_text = raw_text
-        self.text = raw_text
+        self.raw_text = raw_text.lower()
+        self.text = raw_text.lower()
         self.tokens = [] 
 
     def tokenized(self):
