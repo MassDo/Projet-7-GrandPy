@@ -42,7 +42,11 @@ Deploy the app with this tutorial:
 
 https://devcenter.heroku.com/articles/git
 
-Wait you have one Last thing to do ! You need to go to the main.py module and do this changes:
+Wait you have two Last things to do ! You need first to go to the main.py module and do this changes:
 
 ![main.py_changes](images/prod.png)
+
+And finally, create the following environment variable for containing your google map API keys for server use.
+
+![main.py_changes](images/api_key.png)
 

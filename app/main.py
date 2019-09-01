@@ -1,5 +1,5 @@
 """
-    Flask app controler
+    Flask app controller
 """
 from flask import Flask, render_template, request, jsonify
 
@@ -10,12 +10,11 @@ from flask import Flask, render_template, request, jsonify
 from toolbox.chatbot import Chatbot
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'ma_cle_secrette' 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     """
-        controler 
+        main route 
     """ 
     chatbot = Chatbot()    
     if request.method == 'POST':
