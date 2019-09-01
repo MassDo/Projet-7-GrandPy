@@ -1,3 +1,8 @@
+"""
+    Module that make chatbot responses
+    from user parsed text and using data collected
+    from the module api_manager
+"""
 import random
 
 from .parser import Parser
@@ -26,9 +31,6 @@ class Chatbot:
             return the bot answer modulate by the proximity
             parameter of the method ApiManager.get_intro()
         """ 
-        # intro_name = [
-            
-        # ]
         intro_address = [
             "Humm, je pense que l'adresse que tu recherches est: ",
             "Alors... Je peux me tromper mais je me souviens d'une adresse à cet endroit: ",

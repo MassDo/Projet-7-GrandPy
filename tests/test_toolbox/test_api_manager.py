@@ -1,4 +1,6 @@
-
+"""
+    test of the module api_manager
+"""
 from app.toolbox import api_manager
 
 
@@ -142,7 +144,7 @@ class MockRequestGetWikiIntroProximity_one:
 
 def test_ApiManager_exist():
     """
-        Test if class is created.
+        Test if class ApiManager is created.
     """
     assert hasattr(api_manager, "ApiManager")
 
@@ -182,7 +184,6 @@ def test_methode_place_finder_works(monkeypatch):
         'requests.get',
         MockRequestsGetPlace
     )
-
 
     # test de la fonction
     search_obj = api_manager.ApiManager("Elysée")

@@ -1,3 +1,6 @@
+"""
+    Test of the module parser
+"""
 from app.toolbox import parser
 
 

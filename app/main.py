@@ -1,3 +1,6 @@
+"""
+    Flask app controler
+"""
 from flask import Flask, render_template, request, jsonify
 
 # import for Heroku

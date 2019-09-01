@@ -1,3 +1,8 @@
+"""
+    Module in charge to get address, coodinates
+    and wiki informations, using APIs.
+"""
+
 import os
 
 import requests
