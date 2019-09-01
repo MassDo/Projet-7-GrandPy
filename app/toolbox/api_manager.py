@@ -3,9 +3,9 @@ import os
 import requests
 
 # Prod
-API_KEYS = os.environ.get('API_KEY_GOOGLE')
+# API_KEYS = os.environ.get('API_KEY_GOOGLE')
 # Dev
-# API_KEYS = os.environ.get('KEY_API_GOOGLE')
+API_KEYS = os.environ.get('KEY_API_GOOGLE')
 
 class ApiManager:
     """

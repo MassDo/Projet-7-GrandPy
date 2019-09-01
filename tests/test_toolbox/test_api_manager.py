@@ -19,16 +19,16 @@ class MockRequestsGetPlace:
         """
         return {
            "candidates" : [
-              {
-                 "formatted_address" : "55 Rue du Faubourg Saint-Honoré, 75008 Paris, France",
-                 "geometry" : {
-                    "location" : {
-                       "lat" : 48.8704156,
-                       "lng" : 2.3167539
-                    }
-                 },
-                 "name" : "Le Palais de L'Élysée"
-              }
+                {
+                   "formatted_address" : "55 Rue du Faubourg Saint-Honoré, 75008 Paris, France",
+                   "geometry" : {
+                        "location" : {
+                           "lat" : 48.8704156,
+                           "lng" : 2.3167539
+                        }
+                   },
+                   "name" : "Le Palais de L'Élysée"
+                }
            ],
            "status" : "OK"
         }
@@ -47,46 +47,33 @@ class MockRequestsGetWiki:
     def json(self):
         """
             Return the simulate json that will
-            be returned by the api in real situation.
+            be returned by the api in real situation
+            for Palais de l'Élysée search.
         """
         return {
             "batchcomplete": "",
+            "continue": {
+                "sroffset": 1,
+                "continue": "-||"
+            },                
             "query": {
-                "geosearch": [{
-                    "pageid": 38724,
+                "searchinfo": {
+                    "totalhits": 3628
+                },
+                "search": [
+                    {
                     "ns": 0,
                     "title": "Palais de l'Élysée",
-                    "lat": 48.8701444,
-                    "lon": 2.3164861,
-                    "dist": 36,
-                    "primary": ""
-                }, {
-                    "pageid": 7161912,
-                    "ns": 0,
-                    "title": "Ambassade de Colombie en France",
-                    "lat": 48.870139,
-                    "lon": 2.317694,
-                    "dist": 75.3,
-                    "primary": ""
-                }, {
-                    "pageid": 722651,
-                    "ns": 0,
-                    "title": "Place Beauvau",
-                    "lat": 48.871081,
-                    "lon": 2.316236,
-                    "dist": 83.1,
-                    "primary": ""
-                }, {
-                    "pageid": 3652124,
-                    "ns": 0,
-                    "title": "Rue de Duras",
-                    "lat": 48.870878,
-                    "lon": 2.317868,
-                    "dist": 96.4,
-                    "primary": ""
-                }]
+                    "pageid": 38724,
+                    "size": 186587,
+                    "wordcount": 23333,
+                    "snippet": "voir <span class=\"searchmatch\">Élysée</span>. <span class=\"searchmatch\">Palais</span> <span class=\"searchmatch\">de</span> <span class=\"searchmatch\">l'Élysée</span> La cour et l'entrée du <span class=\"searchmatch\">palais</span> <span class=\"searchmatch\">de</span> <span class=\"searchmatch\">l'Élysée</span>. modifier - modifier le code - modifier Wikidata Le <span class=\"searchmatch\">palais</span> <span class=\"searchmatch\">de</span> <span class=\"searchmatch\">l'Élysée</span>, dit",
+                    "timestamp": "2019-08-01T04:19:47Z"
+                    }
+                ]
             }
         }
+
 
 
 class MockRequestGetWikiIntroProximityDefault:
@@ -124,6 +111,8 @@ class MockRequestGetWikiIntroProximity_one:
     """
         Mock requests.get for wiki api use
         to get intro for second article.
+        this mock is used if we are using 
+        the research of article via coordinates.
     """     
     def __init__(self, url, params=None):
         """
@@ -234,9 +223,6 @@ def test_articles_nearby_works(monkeypatch):
 
     assert search_obj.articles_id == [
         38724,
-        7161912,
-        722651,
-        3652124
     ]   
 
 def test_get_inro_exist():
@@ -274,33 +260,35 @@ def test_get_intro_works_default_proximity(monkeypatch):
 
     assert search_obj.intro == "texte descriptif d'intro"
 
-def test_get_intro_works_proximity_1(monkeypatch):
-    """
-        Test if get_intro() implement ApiManager.intro
-        using the second element of ApiManager.articles_id
-        and the wiki API.
-    """    
-    # patching for place api    
-    monkeypatch.setattr(
-        'requests.get', 
-        MockRequestsGetPlace
-    ) 
-    search_obj = api_manager.ApiManager("Elysée")
-    search_obj.place_finder()
-    # patching for wiki api
-    monkeypatch.setattr(
-        'requests.get',
-        MockRequestsGetWiki
-    )
-    search_obj.articles_nearby()
-    #patching for wiki intro
-    monkeypatch.setattr(
-        'requests.get',
-        MockRequestGetWikiIntroProximity_one
-    )
-    search_obj.get_intro(1)
+# def test_get_intro_works_proximity_1(monkeypatch):
+#     """
+#         Use this test if you are searching articles via
+#         coordinates.
+#         Test if get_intro() implement ApiManager.intro
+#         using the second element of ApiManager.articles_id
+#         and the wiki API.
+#     """    
+#     # patching for place api    
+#     monkeypatch.setattr(
+#         'requests.get', 
+#         MockRequestsGetPlace
+#     ) 
+#     search_obj = api_manager.ApiManager("Elysée")
+#     search_obj.place_finder()
+#     # patching for wiki api
+#     monkeypatch.setattr(
+#         'requests.get',
+#         MockRequestsGetWiki
+#     )
+#     search_obj.articles_nearby()
+#     #patching for wiki intro
+#     monkeypatch.setattr(
+#         'requests.get',
+#         MockRequestGetWikiIntroProximity_one
+#     )
+#     search_obj.get_intro(1)
 
-    assert search_obj.intro == "texte descriptif d'intro proximité = 1"
+#     assert search_obj.intro == "texte descriptif d'intro proximité = 1"
     
 
 

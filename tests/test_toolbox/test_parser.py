@@ -29,9 +29,9 @@ class Test_parser():
         my_text_analyser.tokenized()        
 
         assert my_text_analyser.tokens == [
-                                            "Hello",
+                                            "hello",
                                             "world",
-                                            "How",
+                                            "how",
                                             "are",
                                             "you"
         ]
@@ -53,19 +53,9 @@ class Test_parser():
         my_text_analyser.tokenized()
         my_text_analyser.pop()
 
-        assert my_text_analyser.text == "Bonjour tour Eiffel"
+        assert my_text_analyser.text == "bonjour tour eiffel"
 
 
-# package: app
-#     package: toolbox
-#         module: parser.py      
-#         module: stop_words_oc
-#             ma constante à importer: stopwords  
-# package: tests
-#     package: test_toolbox
-#         module: test_parser 
 
-#         # je fais: from app.toolbox import parser
-#                             # j'ai ModuleNotFoundError: No module named 'stop_words_oc'
 
 
