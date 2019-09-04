@@ -23,8 +23,6 @@ function makeRequest(url, text, responseZone) {
             if (httpRequest.readyState === XMLHttpRequest.DONE) { // if request is done
                 if (httpRequest.status === 200) { // if the ressource is find
                     resolve(httpRequest)
-                }else {
-                    reject(httpRequest)
                 }
             }else {
                 reject(httpRequest)
