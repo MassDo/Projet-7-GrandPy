@@ -183,7 +183,7 @@ function search(loader_function) {
         .catch((response) => {
             var loader = document.getElementsByClassName("loader")
             loader.remove();
-            console.log("catch promise")
+            alert("Probleme de connexion! :(")
         });
     }
     else {
