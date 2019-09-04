@@ -60,10 +60,3 @@ class Parser():
         tokens_pop_sw = [w for w in self.tokens if not w in list(sw)]
         # Make a str from this list
         self.text = " ".join(tokens_pop_sw)
-        
-
-
-if __name__ == '__main__':
-        parser_obj = Parser(None)
-        parser_list = parser_obj.tokenized() # None
-        paser_list_pop = parser_list.pop()

@@ -177,6 +177,9 @@ function search(loader_function) {
             callBack(response);
             var loader = document.getElementsByClassName("loader")
             loader.remove();
+        }).catch(() => {
+            var loader = document.getElementsByClassName("loader")
+            loader.remove();
         });
     }
     else {

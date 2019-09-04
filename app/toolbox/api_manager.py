@@ -135,9 +135,3 @@ class ApiManager:
             self.link = f"https://fr.wikipedia.org/?curid={self.articles_id[proximity]}"
         except:
             raise Exception("The intro data from wiki Api is corrupted or empty...")
-
-if __name__ == '__main__':
-
-    test = ApiManager("Elysée")
-    test.articles_nearby()
-    print(test.articles_id)
