@@ -23,9 +23,9 @@ function makeRequest(url, text, responseZone) {
             if (httpRequest.readyState === XMLHttpRequest.DONE) { // if request is done
                 if (httpRequest.status === 200) { // if the ressource is find
                     resolve(httpRequest)
-                }
-            }else {
+                }else {
                 reject(httpRequest)
+                }
             }
         }
         httpRequest.open('POST', url);
@@ -178,10 +178,12 @@ function search(loader_function) {
             callBack(response);
             var loader = document.getElementsByClassName("loader")
             loader.remove();
+            console.log("promise kept")
         })
         .catch((response) => {
             var loader = document.getElementsByClassName("loader")
             loader.remove();
+            console.log("catch promise")
         });
     }
     else {
