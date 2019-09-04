@@ -4,10 +4,10 @@
 from flask import Flask, render_template, request, jsonify
 
 # import for Heroku
-# from app.toolbox.chatbot import Chatbot
+from app.toolbox.chatbot import Chatbot
 
 # imports for development server
-from toolbox.chatbot import Chatbot
+# from toolbox.chatbot import Chatbot
 
 app = Flask(__name__)
 
@@ -37,10 +37,10 @@ def home():
 
 if __name__ == '__main__':
     # run for production server
-    # app.run()
+    app.run()
 
     # run for development server
-    app.run(debug=True)
+    # app.run(debug=True)
 
         
     
