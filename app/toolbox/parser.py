@@ -39,7 +39,10 @@ class Parser():
            without accents and punctuation
            "Hello, world!" => ["Hello", "world"]
         """
-        self.tokens = re.sub(r"[^\w]", " ", self.raw_text).split()
+        if self.raw_text != "":
+            self.tokens = re.sub(r"[^\w]", " ", self.raw_text).split()
+        else:
+            raise Exception ("Cannot parse a empty text")
 
     def pop(self):
         """
@@ -48,6 +51,7 @@ class Parser():
             and implement the text attribut 
             with the final str
         """ 
+  
         #StopWords(sw) set
         sw = set()
         # ADD openclassrooms(oc) SW        
@@ -56,6 +60,10 @@ class Parser():
         tokens_pop_sw = [w for w in self.tokens if not w in list(sw)]
         # Make a str from this list
         self.text = " ".join(tokens_pop_sw)
+        
+
 
 if __name__ == '__main__':
-    pass
+        parser_obj = Parser(None)
+        parser_list = parser_obj.tokenized() # None
+        paser_list_pop = parser_list.pop()

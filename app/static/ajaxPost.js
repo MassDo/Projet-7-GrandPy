@@ -56,7 +56,6 @@ function callBack(httpRequest) {
             map: map
         });             
     };
-    /*document.getElementById("map").innerHTML = ""*/
     botResponse(response);
     if (response.lat !== 0 && response.lng !== 0 ){
         newMap(responseZone);

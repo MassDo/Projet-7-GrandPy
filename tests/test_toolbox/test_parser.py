@@ -1,6 +1,7 @@
 """
     Test of the module parser
 """
+import pytest
 from app.toolbox import parser
 
 
@@ -57,6 +58,19 @@ class Test_parser():
         my_text_analyser.pop()
 
         assert my_text_analyser.text == "bonjour tour eiffel"
+
+    # NEW
+    def test_tokenize_empty_text_is_none(self):
+        """
+            Testing if exception is raised when,
+            parsing a empty string.
+        """
+        raw_text = ""
+        my_text_analyser = parser.Parser(raw_text)
+        
+        with pytest.raises(Exception, match="Cannot parse a empty text"):
+            assert my_text_analyser.tokenized()
+
 
 
 

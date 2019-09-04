@@ -18,8 +18,11 @@ def home():
     """ 
     chatbot = Chatbot()    
     if request.method == 'POST':
-        user_input = request.form.get("userInput")        
-        chatbot.answer(user_input) 
+        user_input = request.form.get("userInput") 
+        try:       
+            chatbot.answer(user_input) 
+        except TypeError as err:
+            print(err)
 
         return jsonify(
             address=chatbot.address,

@@ -21,8 +21,8 @@ class Chatbot:
         self.text = ""
         self.name = ""
         self.address = ""
-        self.latitude = float()
-        self.longitude = float()
+        self.latitude = 0
+        self.longitude = 0
         self.link = ""
         self.parsed = ""
 
@@ -49,18 +49,23 @@ class Chatbot:
 
         self.input = user_input            
         
+
         # Parsing
-        text_parser = Parser(self.input)
-        text_parser.tokenized()
-        text_parser.pop()         
-        self.parsed = text_parser.text
-        # if this is the first time user ask for a place
-        if self.parsed in Chatbot.text_parsed_list:
-           Chatbot.proximity += 1
-        # if the user asking for the same place
-        else:
-            Chatbot.text_parsed_list.append(self.parsed)
-            Chatbot.proximity = 0                       
+        try:
+            text_parser = Parser(self.input)
+            text_parser.tokenized()
+            text_parser.pop()         
+            self.parsed = text_parser.text
+            # if this is the first time user ask for a place
+            if self.parsed in Chatbot.text_parsed_list:
+               Chatbot.proximity += 1
+            # if the user asking for the same place
+            else:
+                Chatbot.text_parsed_list.append(self.parsed)
+                Chatbot.proximity = 0  
+        except Exception as err:
+            print("Parsing error: ", err)
+
         
         # API data collection
         try:
@@ -78,10 +83,15 @@ class Chatbot:
             data_finder.get_intro(Chatbot.proximity)
             self.link = data_finder.link
             self.text = random.choice(intro_text) + data_finder.intro[0:200] + random.choice(outro_text)
-        except:
-            print("no result or error in answer method")
-        # data into the template
+        except Exception as err:
+            print("Err message: ", err)
         
+
         if self.text == "":
             self.text = "Désolé mon ptit j'ai la mémoire qui flanche\
  je n'ai pas d'histoires sur cet endroit..."
+
+if __name__ == '__main__':
+    bot = Chatbot()
+    print(bot.answer(""))
+    print(bot.text)

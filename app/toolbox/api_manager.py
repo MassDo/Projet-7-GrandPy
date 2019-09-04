@@ -30,11 +30,11 @@ class ApiManager:
         self.parsed_text = parsed_text
         self.name = ""
         self.address = ""   
-        self.latitude = float()
-        self.longitude = float()
+        self.latitude = 0
+        self.longitude = 0
         self.intro = ""
         self.link = ""
-        self.articles_id = list() # List of the id of articles
+        self.articles_id = [] # List of the id of articles
                               # found nearby the place.
 
     def place_finder(self):
@@ -46,23 +46,29 @@ class ApiManager:
                 => address
                 => latitude
                 => longitude         
-        """       
-        payload = {
-            "input": self.parsed_text,
-            "language": "fr",
-            "fields": "formatted_address,name,geometry/location",
-            "inputtype": "textquery",
-            "key": API_KEYS
-        }        
-        response = requests.get(
-            'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?',
-            params=payload
-        ).json()
-        
-        self.name = response['candidates'][0]['name']
-        self.address = response['candidates'][0]['formatted_address']
-        self.latitude = response['candidates'][0]['geometry']['location']['lat']
-        self.longitude = response['candidates'][0]['geometry']['location']['lng']
+        """  
+        if self.parsed_text:     
+            payload = {
+                "input": self.parsed_text,
+                "language": "fr",
+                "fields": "formatted_address,name,geometry/location",
+                "inputtype": "textquery",
+                "key": API_KEYS
+            }        
+            response = requests.get(
+                'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?',
+                params=payload
+            ).json()
+            try:
+                self.name = response['candidates'][0]['name']
+                self.address = response['candidates'][0]['formatted_address']
+                self.latitude = response['candidates'][0]['geometry']['location']['lat']
+                self.longitude = response['candidates'][0]['geometry']['location']['lng']
+            except:
+               raise Exception("invalid data from Api ... ")
+        else: 
+            raise Exception("Cannot search place with empty text")
+                
         
     def articles_nearby(self):
         """
@@ -77,38 +83,27 @@ class ApiManager:
             commented section.
         """
 
-        # uncomment this for searching articles via coordinates
-        # api_payload = {
-        #     "action": "query",
-        #     "list": "geosearch",
-        #     "gscoord": "{}|{}".format(self.latitude, self.longitude), 
-        #     "gsradius": 500, # radius in meters 
-        #     "gslimit": 10, # number max of articles
-        #     "format": "json"                  
-        # } 
-
-        # comment api_payload for searching articles via coordinates
         api_payload = {
             "action": "query",
             "list": "search",
             "srlimit": "1",
             "srsearch": self.name,
             "format": "json"                  
-        }      
-        response = requests.get(
-            "https://fr.wikipedia.org/w/api.php?",
-            params=api_payload
-        ).json()  
+        } 
+        if self.name:     
+            response = requests.get(
+                "https://fr.wikipedia.org/w/api.php?",
+                params=api_payload
+            ).json() 
+        else:
+            raise Exception("Cannot search for article id if term of the research is empty") 
 
-        # uncomment following self.articles_id for searching articles via coordinates
-        # self.articles_id = [
-        #     article["pageid"] for article in response["query"]["geosearch"]
-        # ]
-
-        # comment self.articles_id for searching articles via coordinates
-        self.articles_id = [
-            article["pageid"] for article in response["query"]["search"]
-        ]
+        try:
+            self.articles_id = [
+                article["pageid"] for article in response["query"]["search"]
+            ]
+        except:
+            raise Exception("The data From wikipedia Api are corrupted")
 
     def get_intro(self, proximity=0):
         """
@@ -128,13 +123,18 @@ class ApiManager:
             "pageids": self.articles_id[proximity],
             "format": "json"                  
         } 
-        response = requests.get(
-            "https://fr.wikipedia.org/w/api.php?",
-            params=api_payload
-        ).json()
-        
-        self.intro = response["query"]["pages"][str(self.articles_id[proximity])]["extract"]
-        self.link = f"https://fr.wikipedia.org/?curid={self.articles_id[proximity]}"
+        try:
+            response = requests.get(
+                "https://fr.wikipedia.org/w/api.php?",
+                params=api_payload
+            ).json()
+        except IndexError:
+            print("no article id")
+        try:
+            self.intro = response["query"]["pages"][str(self.articles_id[proximity])]["extract"]
+            self.link = f"https://fr.wikipedia.org/?curid={self.articles_id[proximity]}"
+        except:
+            raise Exception("The intro data from wiki Api is corrupted or empty...")
 
 if __name__ == '__main__':
 

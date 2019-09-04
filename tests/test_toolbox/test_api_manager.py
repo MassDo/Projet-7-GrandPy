@@ -1,6 +1,9 @@
+
 """
     test of the module api_manager
 """
+import pytest
+
 from app.toolbox import api_manager
 
 
@@ -35,10 +38,34 @@ class MockRequestsGetPlace:
            "status" : "OK"
         }
 
+
+class MockRequestsGetPlaceEmpty:
+    """
+        Mock requests.get for the api place with empty return data.
+    """
+    def __init__(self, url, params=None):
+        """
+            Give the parameters to the mock
+        """
+        pass
+
+    def json(self):
+        """
+            Return the simulate json that will
+            be returned by the api in real situation
+            with empty data.
+        """
+        return {
+           "candidates" : [],
+           "status" : "OK"
+        }
+
  
 class MockRequestsGetWiki:
     """
-        Mock requests.get for wiki api use
+        Mock requests.get for wiki api use with,
+        correct data returned. 
+
     """    
     def __init__(self, url, params=None):
         """
@@ -77,8 +104,33 @@ class MockRequestsGetWiki:
         }
 
 
+class MockRequestsGetWikiIncorrectReturn:
+    """
+        Mock requests.get for wiki api use with,
+        correct data returned. 
 
-class MockRequestGetWikiIntroProximityDefault:
+    """    
+    def __init__(self, url, params=None):
+        """
+            Give the parameters to the mock
+        """
+        pass
+
+    def json(self):
+        """
+            Return the simulate incorrect json that will
+            be returned by the api
+        """
+        return {
+            "batchcomplete": "",
+            "continue": {
+                "sroffset": 1,
+                "continue": "-||"
+            }
+        }
+
+
+class MockRequestGetWikiIntro:
     """
         Mock requests.get for wiki api use
         to get intro for first article
@@ -107,15 +159,12 @@ class MockRequestGetWikiIntroProximityDefault:
                 }
             }
         }
-
-
-class MockRequestGetWikiIntroProximity_one:
+        
+class MockRequestGetWikiIntroEmptyData:
     """
-        Mock requests.get for wiki api use
-        to get intro for second article.
-        this mock is used if we are using 
-        the research of article via coordinates.
-    """     
+        Mock requests.get for wiki api 
+        returning corrupted data.
+    """    
     def __init__(self, url, params=None):
         """
             Give the parameters to the mock
@@ -124,18 +173,17 @@ class MockRequestGetWikiIntroProximity_one:
 
     def json(self):
         """
-            Return the simulate json that will
-            be returned by the api in real situation.
+            Simulate empty json for extrac key (introduction article
+            of a wikipedia page) .
         """
         return {
             "batchcomplete": "",
             "query": {
                 "pages": {
-                    "7161912": {
-                      "pageid": 7161912,
+                    "38724": {
+                      "pageid": 38724,
                       "ns": 0,
-                      "title": "Palais de l'Élysée",
-                      "extract": "texte descriptif d'intro proximité = 1"
+                      "title": "Palais de l'Élysée"
                     }
                 }
             }
@@ -169,8 +217,11 @@ def test_place_finder_exist():
     test_object = api_manager.ApiManager("user parsed text")
     assert hasattr(test_object, "place_finder")
 
+# Google Place API 
 def test_methode_place_finder_works(monkeypatch):  
     """ 
+        Google Place API connection test if correct data sent.
+
         The method place_finder must implement the instances attributs
         from the instance attribut parsed_text and the google place API:
 
@@ -185,7 +236,7 @@ def test_methode_place_finder_works(monkeypatch):
         MockRequestsGetPlace
     )
 
-    # test de la fonction
+    # test de la méthode
     search_obj = api_manager.ApiManager("Elysée")
     search_obj.place_finder()
 
@@ -194,6 +245,41 @@ def test_methode_place_finder_works(monkeypatch):
     assert search_obj.latitude == 48.8704156
     assert search_obj.longitude == 2.3167539
 
+# Empty input
+def test_place_finder_empty_input():
+    """
+        Test if a exception is raised if
+        we give a empty text in input.
+    """
+    search = api_manager.ApiManager("")
+    with pytest.raises(Exception, match="Cannot search place with empty text"):
+        assert search.place_finder()
+
+# Corrupted data in return from Google Place Api
+def test_place_finder_corrupted_return_raise_Exception(monkeypatch):
+    """
+        Testing if a exception is raised for corrupted data
+        from api json file.
+
+        Also testing if the method return empty string for 
+        the attributes name & address.
+        And return value 0 for the attributes latitudes & longitude
+    """
+
+    # Patching of the corrupted data mock
+    monkeypatch.setattr(
+        'requests.get',
+        MockRequestsGetPlaceEmpty
+    )
+    # test
+    search_obj = api_manager.ApiManager("Elysée")
+    with pytest.raises(Exception, match="invalid data from Api ... "):
+        assert search_obj.place_finder()
+        assert search_obj.name == ""
+        assert search_obj.address == ""
+        assert search_obj.latitude == 0
+        assert search_obj.longitude == 0
+
 def test_articles_nearby_exist():
     """
         Test if search_articles_nearby method is created.
@@ -201,12 +287,14 @@ def test_articles_nearby_exist():
     test_object = api_manager.ApiManager("user parsed text")
     assert hasattr(test_object, "articles_nearby")
 
+# Wikipedia API
 def test_articles_nearby_works(monkeypatch):  
-    """     
+    """  
+        Wikimedia API connection test if correct data sent.
+
         Using wikimedia action API.
         Return the pageid wikimedia API parameter 
-        of the first article's page found 
-        nearby 100 meters radius from the coordinates point.        
+        of the first article's page found.         
     """     
     # patching for place api    
     monkeypatch.setattr(
@@ -226,14 +314,53 @@ def test_articles_nearby_works(monkeypatch):
         38724,
     ]   
 
-def test_get_inro_exist():
+# Empty input
+def test_articles_nearby_empty_input():
+    """
+        Test if a exception is raised if
+        we give a empty text in input.
+    """
+    search = api_manager.ApiManager("")
+    with pytest.raises(
+        Exception,
+        match="Cannot search for article id if term of the research is empty"
+        ):
+        assert search.articles_nearby()
+
+# Corrupted data in return from the wiki Api
+def test_articles_nearby_corrupted_return(monkeypatch):
+    """
+        Testing if exception is raised for 
+        corrupted json data wiki api return.
+    """
+       # patching for place api correct data return   
+    monkeypatch.setattr(
+        'requests.get', 
+        MockRequestsGetPlace
+    ) 
+    search_obj = api_manager.ApiManager("Elysée")
+    search_obj.place_finder()
+
+    # patching for wiki api corrupted data
+    monkeypatch.setattr(
+        'requests.get',
+        MockRequestsGetWikiIncorrectReturn
+    )
+    with pytest.raises(
+        Exception,
+        match="The data From wikipedia Api are corrupted"
+        ):
+        assert search_obj.articles_nearby()
+
+def test_get_intro_exist():
     """
         Test if the method exist
     """
     test_object = api_manager.ApiManager("user parsed text")
     assert hasattr(test_object, "get_intro")
 
-def test_get_intro_works_default_proximity(monkeypatch):
+# Wiki Api Intro text collection with correct json data
+def test_get_intro_works_correct_data(monkeypatch):
     """
         Test if get_intro() implement ApiManager.intro
         using the first element of ApiManager.articles_id
@@ -246,50 +373,69 @@ def test_get_intro_works_default_proximity(monkeypatch):
     ) 
     search_obj = api_manager.ApiManager("Elysée")
     search_obj.place_finder()
+
     # patching for wiki api
     monkeypatch.setattr(
         'requests.get',
         MockRequestsGetWiki
     )
     search_obj.articles_nearby()
-    #patching for wiki intro
+
+    #patching for wiki intro with valids json data.
     monkeypatch.setattr(
         'requests.get',
-        MockRequestGetWikiIntroProximityDefault
+        MockRequestGetWikiIntro
     )
     search_obj.get_intro()
 
     assert search_obj.intro == "texte descriptif d'intro"
 
-# def test_get_intro_works_proximity_1(monkeypatch):
-#     """
-#         Use this test if you are searching articles via
-#         coordinates.
-#         Test if get_intro() implement ApiManager.intro
-#         using the second element of ApiManager.articles_id
-#         and the wiki API.
-#     """    
-#     # patching for place api    
-#     monkeypatch.setattr(
-#         'requests.get', 
-#         MockRequestsGetPlace
-#     ) 
-#     search_obj = api_manager.ApiManager("Elysée")
-#     search_obj.place_finder()
-#     # patching for wiki api
-#     monkeypatch.setattr(
-#         'requests.get',
-#         MockRequestsGetWiki
-#     )
-#     search_obj.articles_nearby()
-#     #patching for wiki intro
-#     monkeypatch.setattr(
-#         'requests.get',
-#         MockRequestGetWikiIntroProximity_one
-#     )
-#     search_obj.get_intro(1)
+# Empty input data
+def test_get_intro_empty_input_raise_exception():
+    """
+        Test if get_intro() with empty wiki article id
+        raise an eception
+    """
+    search = api_manager.ApiManager("")
 
-#     assert search_obj.intro == "texte descriptif d'intro proximité = 1"
+    with pytest.raises(IndexError):
+        assert search.get_intro()
+
+# No intro in json data from wiki api
+def test_get_intro_empty_json_result(monkeypatch):
+    """
+        Test if a exception is raise if corrupted 
+        json data from api.
+
+        Also the attribut intro of the ApiManager instatiation
+        must be a empty string in this case in order to trigger
+        the "no result" bot response buble. 
+    """ 
+    # patching for place api    
+    monkeypatch.setattr(
+        'requests.get', 
+        MockRequestsGetPlace
+    ) 
+    search_obj = api_manager.ApiManager("Elysée")
+    search_obj.place_finder()
+
+    # patching for wiki api
+    monkeypatch.setattr(
+        'requests.get',
+        MockRequestsGetWiki
+    )
+    search_obj.articles_nearby()
+
+    #patching for wiki intro with empty json data.
+    monkeypatch.setattr(
+        'requests.get',
+        MockRequestGetWikiIntroEmptyData
+    )
     
+    with pytest.raises(Exception, match="The intro data from wiki Api is corrupted or empty..."):
+        assert search_obj.get_intro()
+        assert search_obj.intro == ""
 
+
+    
 
