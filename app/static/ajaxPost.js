@@ -13,7 +13,7 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
 }
 // AJAX REQUEST
 function makeRequest(url, text, responseZone) {
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
         httpRequest = new XMLHttpRequest();     
         if (!httpRequest) {
             alert('Abandon :( Impossible de créer une instance de XMLHTTP');
@@ -26,6 +26,8 @@ function makeRequest(url, text, responseZone) {
                 }else {
                     reject(httpRequest)
                 }
+            }else {
+                reject(httpRequest)
             }
         }
         httpRequest.open('POST', url);
@@ -173,11 +175,13 @@ function search(loader_function) {
         bubble(userInput, responseZone, textarea)
         loader_function();
         // ajax request
-        makeRequest('/', text, responseZone).then((response) => {
+        makeRequest('/', text, responseZone)
+        .then((response) => {
             callBack(response);
             var loader = document.getElementsByClassName("loader")
             loader.remove();
-        }).catch(() => {
+        })
+        .catch((response) => {
             var loader = document.getElementsByClassName("loader")
             loader.remove();
         });
