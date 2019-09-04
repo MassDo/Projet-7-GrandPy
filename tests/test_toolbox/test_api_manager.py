@@ -159,7 +159,7 @@ class MockRequestGetWikiIntro:
                 }
             }
         }
-        
+
 class MockRequestGetWikiIntroEmptyData:
     """
         Mock requests.get for wiki api 
@@ -217,6 +217,7 @@ def test_place_finder_exist():
     test_object = api_manager.ApiManager("user parsed text")
     assert hasattr(test_object, "place_finder")
 
+# NEW
 # Google Place API 
 def test_methode_place_finder_works(monkeypatch):  
     """ 
