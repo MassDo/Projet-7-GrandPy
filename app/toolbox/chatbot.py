@@ -39,7 +39,7 @@ class Chatbot:
         intro_text = [
             "Sais tu que ", 
             "Ah je me souviens d'une histoire: ",
-            "Attend laisse moi réfléchir... AH oui une histoire sur ce lieu: "
+            "Attends laisse moi réfléchir... AH oui une histoire sur ce lieu: "
         ]
         outro_text = [
             " ... Bon excuse moi minot mais je suis en retard pour ma sieste si tu veux la suite clique plutot ici: ",
